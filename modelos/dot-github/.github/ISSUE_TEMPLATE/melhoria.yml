@@ -1,0 +1,21 @@
+name: ✨ Sugerir uma melhoria
+description: Ideia de funcionalidade nova ou de algo que pode ficar melhor.
+labels: ["melhoria"]
+body:
+  - type: textarea
+    id: problema
+    attributes:
+      label: Qual problema isso resolve?
+      placeholder: "Hoje, para fazer X, eu preciso ..."
+    validations:
+      required: true
+  - type: textarea
+    id: solucao
+    attributes:
+      label: Como você imagina a solução?
+    validations:
+      required: true
+  - type: textarea
+    id: alternativas
+    attributes:
+      label: Alternativas consideradas

@@ -1,0 +1,17 @@
+# Copie para .github/dependabot.yml nos projetos ativos.
+# O Dependabot abre PRs semanais atualizando dependências e Actions.
+version: 2
+updates:
+  - package-ecosystem: npm # use "pip" em projetos Python
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      dependencias:
+        update-types: [minor, patch]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
