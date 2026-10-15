@@ -60,6 +60,9 @@ python organizar/organizar.py --aplicar --excluir     # opcional: exclui os vazi
 python organizar/organizar.py --so ClipPro            # só um repositório
 ```
 
+> 📱 **Sem computador?** A Action **Organizar repositórios** roda o mesmo script
+> pelo celular: passo a passo em [`organizar/ACTION.md`](organizar/ACTION.md).
+
 O script pode ser rodado de novo sem problema: pula o que já foi arquivado e o que
 já foi renomeado. Para excluir, o `gh` precisa de permissão extra:
 `gh auth refresh -h github.com -s delete_repo`.

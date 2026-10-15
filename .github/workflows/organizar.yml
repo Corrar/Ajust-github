@@ -1,0 +1,74 @@
+# Roda organizar/organizar.py pelo GitHub (dá para disparar pelo celular).
+# Passo a passo em organizar/ACTION.md.
+name: Organizar repositórios
+
+on:
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: "simular = só mostra o que faria · aplicar = muda de verdade"
+        type: choice
+        options: [simular, aplicar]
+        default: simular
+      renomear:
+        description: "Também renomear para o padrão kebab-case (novo_nome do repos.json)"
+        type: boolean
+        default: false
+      so:
+        description: "Só estes repositórios (nomes separados por espaço). Vazio = todos"
+        type: string
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: organizar
+  cancel-in-progress: false
+
+jobs:
+  organizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Conferir o token
+        if: inputs.modo == 'aplicar'
+        env:
+          GH_TOKEN: ${{ secrets.ORGANIZAR_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::error::Falta o secret ORGANIZAR_TOKEN. Veja o passo a passo em organizar/ACTION.md."
+            exit 1
+          fi
+
+      - name: Rodar o script (${{ inputs.modo }})
+        env:
+          GH_TOKEN: ${{ secrets.ORGANIZAR_TOKEN }}
+          MODO: ${{ inputs.modo }}
+          RENOMEAR: ${{ inputs.renomear }}
+          SO: ${{ inputs.so }}
+        run: |
+          args=()
+          [ "$MODO" = "aplicar" ] && args+=(--aplicar)
+          [ "$RENOMEAR" = "true" ] && args+=(--renomear)
+          if [ -n "$SO" ]; then
+            read -ra repos <<< "$SO"
+            args+=(--so "${repos[@]}")
+          fi
+          set -o pipefail
+          python3 organizar/organizar.py "${args[@]}" | tee saida.txt
+
+      - name: Resumo
+        if: always()
+        env:
+          MODO: ${{ inputs.modo }}
+        run: |
+          {
+            echo "## Organizar repositórios · modo: $MODO"
+            echo
+            echo '```'
+            cat saida.txt 2>/dev/null || echo "(o script não chegou a rodar; veja o log do passo anterior)"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
