@@ -1,6 +1,7 @@
 # Roda organizar/organizar.py pelo GitHub (dá para disparar pelo celular).
 # Passo a passo em organizar/ACTION.md.
 name: Organizar repositórios
+run-name: "Organizar repositórios · ${{ inputs.modo }}"
 
 on:
   workflow_dispatch:
