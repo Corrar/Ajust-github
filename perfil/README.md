@@ -65,12 +65,11 @@
 <p align="center"><code>corrar@github ~ $ ./links.sh</code></p>
 
 <p align="center">
-  <!-- EDITE: para ativar um badge, troque SEU-USUARIO / SEU-NUMERO / SEU-EMAIL e tire-o de dentro do comentário
+  <!-- EDITE: para ativar um badge, troque SEU-USUARIO e tire-o de dentro do comentário
   <a href="https://www.linkedin.com/in/SEU-USUARIO"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
   <a href="https://www.instagram.com/SEU-USUARIO"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram" /></a>
-  <a href="https://wa.me/55SEU-NUMERO"><img src="https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="WhatsApp" /></a>
-  <a href="mailto:SEU-EMAIL"><img src="https://img.shields.io/badge/E--mail-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="E-mail" /></a>
   -->
+  <a href="mailto:o0bruno.dev@gmail.com"><img src="https://img.shields.io/badge/E--mail-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="E-mail: o0bruno.dev@gmail.com" /></a>
   <a href="https://github.com/Corrar"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" /></a>
 </p>
 
