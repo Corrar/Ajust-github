@@ -1,37 +1,35 @@
 <!--
-  README de perfil do GitHub.
-  Para aparecer na sua página (github.com/Corrar), ele precisa estar num
-  repositório PÚBLICO chamado exatamente "Corrar". Veja o passo a passo no
-  README do Ajust-github.
+  README de perfil do GitHub, estilo terminal.
+  Para aparecer em github.com/Corrar, este arquivo precisa estar num
+  repositório PÚBLICO chamado exatamente "Corrar" (passo a passo no
+  README do Ajust-github).
+
+  Os cards (whoami, analytics, contribuições e cobrinha) são gerados todo dia
+  pela Action em .github/workflows/perfil.yml e publicados no branch "output".
+  Nome, cargo e bio do card whoami ficam no topo de scripts/gerar_cards.py.
+
   Trechos marcados com EDITE são para você completar.
 -->
 
-<div align="center">
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Corrar/Corrar/output/whoami.svg" width="100%" alt="corrar@github ~ $ whoami — Bruno Corral, dev full stack" />
+</p>
 
-# Olá, eu sou Bruno Corral 👋
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=ts,js,html,css,react,nextjs,vite,tailwind,nodejs,express,py,cs,dotnet,postgres,prisma,supabase,sqlite,docker,vercel,git,github,vscode&perline=11" alt="TypeScript, JavaScript, HTML, CSS, React, Next.js, Vite, Tailwind, Node.js, Express, Python, C#, .NET, PostgreSQL, Prisma, Supabase, SQLite, Docker, Vercel, Git, GitHub e VS Code" />
+</p>
 
-**Dev full stack** · sistemas de gestão, sites para negócios locais e automações com IA<br>
-Estudante na Fatec Adamantina · interior de São Paulo 🇧🇷
+<h3 align="center">📊 GitHub Analytics</h3>
 
-<!-- EDITE: troque pelos seus links e apague os que não usar
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/SEU-USUARIO)
-[![E-mail](https://img.shields.io/badge/E--mail-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:SEU-EMAIL)
-[![Portfólio](https://img.shields.io/badge/Portf%C3%B3lio-111111?style=for-the-badge&logo=vercel&logoColor=white)](https://SEU-SITE)
--->
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Corrar/Corrar/output/analytics.svg" width="100%" alt="Total de contribuições, sequência atual, maior sequência e atividade dos últimos 30 dias" />
+</p>
 
-</div>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Corrar/Corrar/output/contribuicoes.svg" width="100%" alt="Mapa de contribuições dos últimos 12 meses" />
+</p>
 
----
-
-### 🧭 Sobre mim
-
-- 🏭 Desenvolvo o **Fluxo Royale**, um sistema de estoque, compras e requisições por setor
-- 🍕 Faço sites, PWAs e PDVs para negócios locais: pizzaria, hamburgueria, ótica e drinks
-- 🤖 Gosto de automatizar o trabalho chato com IA: n8n, Gemini, Whisper e agentes
-- 🎓 Estudo na **Fatec Adamantina**
-<!-- EDITE: - 🔭 Agora estou trabalhando em ... -->
-
-### 🚀 Projetos em destaque
+<h3 align="center">🚀 Projetos em destaque</h3>
 
 | Projeto | O que é | Stack | Links |
 |---|---|---|---|
@@ -56,24 +54,23 @@ Estudante na Fatec Adamantina · interior de São Paulo 🇧🇷
 
 </details>
 
-### 🛠️ Tecnologias
+<h3 align="center">🐍 Contribution Graph</h3>
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=ts,js,react,nextjs,vite,tailwind,nodejs,express,py,cs,postgres,prisma,supabase,sqlite,docker,vercel,git,github&perline=9" alt="TypeScript, JavaScript, React, Next.js, Vite, Tailwind, Node.js, Express, Python, C#, PostgreSQL, Prisma, Supabase, SQLite, Docker, Vercel, Git e GitHub" />
+  <img src="https://raw.githubusercontent.com/Corrar/Corrar/output/cobrinha.svg" width="100%" alt="Cobrinha comendo o gráfico de contribuições" />
 </p>
 
-### 🐍 Contribuições
+<h3 align="center">🤝 Vamos conversar</h3>
 
-<!-- A cobrinha é gerada pela Action em .github/workflows/snake.yml (1x por dia). -->
+<p align="center"><code>corrar@github ~ $ ./links.sh</code></p>
+
+<!-- EDITE: troque SEU-USUARIO / SEU-NUMERO / SEU-EMAIL e apague o que não usar -->
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Corrar/Corrar/output/github-snake-dark.svg" />
-    <img alt="Cobrinha comendo o gráfico de contribuições" src="https://raw.githubusercontent.com/Corrar/Corrar/output/github-snake.svg" />
-  </picture>
+  <a href="https://www.linkedin.com/in/SEU-USUARIO"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
+  <a href="https://www.instagram.com/SEU-USUARIO"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram" /></a>
+  <a href="https://wa.me/55SEU-NUMERO"><img src="https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="WhatsApp" /></a>
+  <a href="mailto:SEU-EMAIL"><img src="https://img.shields.io/badge/E--mail-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="E-mail" /></a>
+  <a href="https://github.com/Corrar"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" /></a>
 </p>
 
-<div align="center">
-
-⭐ Curtiu algum projeto? Deixe uma estrela — ajuda muito!
-
-</div>
+<p align="center"><sub>Nos vemos no próximo commit 🌱</sub></p>

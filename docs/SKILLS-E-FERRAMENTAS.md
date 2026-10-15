@@ -32,6 +32,7 @@ ativar pelo card de instalação na conversa ou pelo catálogo de plugins.
 |---|---|---|
 | [shields.io](https://shields.io) | Badges (LinkedIn, e-mail, demo, status) | Muito estável |
 | [skillicons.dev](https://skillicons.dev) | Ícones das tecnologias | Lista de ícones disponíveis no site |
+| [`perfil/scripts/gerar_cards.py`](../perfil/scripts/gerar_cards.py) (deste kit) | Cards estilo terminal: `whoami` com o logo em ASCII, analytics com sequências e mapa de contribuições | Roda na sua própria Action com os seus dados; temas verde e rosa |
 | [Platane/snk](https://github.com/Platane/snk) | Cobrinha comendo o gráfico de contribuições | Gerada pela sua própria Action, sem depender de servidor de terceiros |
 | [github-readme-stats](https://github.com/anuraghazra/github-readme-stats) | Cards de estatísticas e linguagens | A instância pública é "best effort" e cai por limite de uso ([discussão](https://github.com/anuraghazra/github-readme-stats/issues/4748)). Se quiser usar, hospede a sua cópia na Vercel |
 | [lowlighter/metrics](https://github.com/lowlighter/metrics) | Infográficos completos (linguagens, atividade, conquistas) | Roda via Actions; precisa de um token pessoal como secret |

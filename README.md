@@ -17,11 +17,15 @@ Ajust-github/
 ├── docs/
 │   ├── AUDITORIA.md             # diagnóstico + o que fazer com cada repositório
 │   ├── PADROES.md               # regras para a bagunça não voltar
-│   └── SKILLS-E-FERRAMENTAS.md  # plugins do Claude e ferramentas recomendadas
+│   ├── SKILLS-E-FERRAMENTAS.md  # plugins do Claude e ferramentas recomendadas
+│   └── previa/                  # como o perfil fica (temas verde e rosa)
 ├── organizar/
 │   ├── repos.json               # o plano: descrição, tópicos, arquivar, privar, excluir
 │   └── organizar.py             # aplica o plano com o GitHub CLI (simula por padrão)
-├── perfil/                      # README de perfil pronto + Action da "cobrinha"
+├── perfil/                      # README de perfil estilo terminal
+│   ├── README.md
+│   ├── scripts/gerar_cards.py   # desenha os cards com os seus dados do GitHub
+│   └── .github/workflows/       # Action que atualiza os cards todo dia
 └── modelos/
     ├── README-projeto.md        # modelo de README para os projetos
     ├── readmes/                 # READMEs prontos para colar (Fluxo Royale)
@@ -66,6 +70,22 @@ já foi renomeado. Para excluir, o `gh` precisa de permissão extra:
 
 ### 4. Publique o README de perfil
 
+| Tema verde (padrão) | Tema rosa |
+|---|---|
+| <img src="docs/previa/readme-verde.png" width="400" alt="Prévia do perfil no tema verde" /> | <img src="docs/previa/readme-rosa.png" width="400" alt="Prévia do perfil no tema rosa" /> |
+
+<sub>Prévia com números fictícios; no seu perfil entram os seus dados reais.</sub>
+
+Os cards no estilo terminal (`whoami`, analytics, mapa de contribuições e
+cobrinha) são **gerados pela sua própria Action** com os dados da API do GitHub,
+sem depender de sites de terceiros que vivem caindo. Ela roda a cada push e
+uma vez por dia.
+
+**Antes de publicar**, complete:
+
+- os links de contato marcados com `EDITE` no [`perfil/README.md`](perfil/README.md);
+- nome, cargo e bio no topo de [`perfil/scripts/gerar_cards.py`](perfil/scripts/gerar_cards.py) (bloco `PERFIL`).
+
 O perfil só mostra um README se ele estiver num repositório **público** com o
 mesmo nome do usuário. Rode na pasta onde está o clone do `Ajust-github`:
 
@@ -77,9 +97,16 @@ cd Corrar
 git add . && git commit -m "feat: README de perfil" && git push
 ```
 
-O push já dispara a Action que desenha a cobrinha (depois ela roda uma vez por
-dia). Antes de publicar, complete os trechos marcados com `EDITE` no
-[`perfil/README.md`](perfil/README.md) (links de contato, etc.).
+Espere a Action **Atualizar perfil** terminar (aba *Actions*, cerca de 1 minuto).
+Até lá, as imagens aparecem quebradas.
+
+- **Trocar o tema**: mude `TEMA: verde` para `TEMA: rosa` em `.github/workflows/perfil.yml`.
+- **Contar também o trabalho em repositórios privados** (o Fluxo 5.0, por exemplo):
+  no seu perfil, *Contribution settings → Private contributions*. Sem isso, os
+  números só mostram o que é público.
+- **Logo em ASCII**: sai do seu avatar do GitHub. Se trocar o avatar, o card acompanha.
+- **Testar no seu computador**: `python scripts/gerar_cards.py --demo --saida previa`
+  gera os cards com dados fictícios, sem precisar de token.
 
 ### 5. Fixe os 6 destaques
 
