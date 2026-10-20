@@ -35,9 +35,11 @@ em{font-style:normal;color:var(--brand2)}
 #grain{position:absolute;left:-200px;top:-200px;width:1480px;height:2320px;mix-blend-mode:overlay;opacity:.10;pointer-events:none;transform-origin:0 0}
 
 /* legendas */
-#capbox{position:absolute;left:60px;right:60px;top:1405px;height:220px;text-align:center;pointer-events:none}
-.cap{position:absolute;left:0;right:0;top:0;font:650 66px/1.12 "Inter Display";letter-spacing:-0.03em}
-.cap .w{transform-origin:50% 80%;margin:0 .12em}
+#capbox{position:absolute;inset:0;pointer-events:none;transform-origin:540px 960px}
+.cap{position:absolute;left:30px;right:30px;text-align:center;white-space:nowrap;font-family:"Inter Display";line-height:1.1;letter-spacing:-0.028em;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 30%,#000 70%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 30%,#000 70%,transparent 100%)}
+.cap .w{transform-origin:50% 70%;margin:0 .115em;will-change:transform,opacity,filter}
+.cap .w.em{font-weight:700}
 
 /* S1 noite */
 .star{position:absolute;width:4px;height:4px;border-radius:50%;background:#fff}
@@ -399,37 +401,49 @@ const K = i => VOW[i].s;           // início da palavra i do roteiro
 const KE = i => VOW[i].e;
 const DUR = VO.duration;
 
-/* ---------- legendas (chunks do roteiro) ---------- */
+/* ---------- legendas: a frase entra inteira (em cascata), cada palavra acende na fala ---------- */
 const CH=[[0,0],[1,3],[4,5],[6,10],[11,13],[14,16],[17,21],[22,23],[24,29],[30,35],[36,41],[42,44],[45,48],[49,50],[51,54],[55,59]];
+const CAPSTYLE={0:{y:850,size:116,weight:500}, 15:{y:1095}};   // "Psiu…" é o herói da tela vazia; o CTA fica colado no botão
 const EMPH=new Set(VO.emph);
 const capbox=$('capbox');
+CH.forEach(c=>{
+  const st=Object.assign({y:1418,size:64,weight:600},CAPSTYLE[CH.indexOf(c)]||{});
+  const d=document.createElement('div'); d.className='cap';
+  const pad=st.size*0.75;                                                  // janela com máscara: a linha rola por dentro dela
+  d.style.top=(st.y-pad)+'px'; d.style.paddingTop=pad+'px'; d.style.height=(st.size*1.1+pad*2)+'px';
+  d.style.fontSize=st.size+'px'; d.style.fontWeight=st.weight; c.size=st.size;
+  d._w=[];
+  for(let i=c[0];i<=c[1];i++){ const s=document.createElement('span'); s.className='w'+(EMPH.has(i)?' em':''); s.textContent=VOW[i].w; s.dataset.i=i; d.appendChild(s); d._w.push(s); }
+  capbox.appendChild(d); c.el=d; c.s0=VOW[c[0]].s; c.e1=VOW[c[1]].e;
+});
 CH.forEach((c,ci)=>{
-  const d=document.createElement('div'); d.className='cap'; d.id='cap'+ci;
-  for(let i=c[0];i<=c[1];i++){ const s=document.createElement('span'); s.className='w'; s.textContent=VOW[i].w; s.dataset.i=i; d.appendChild(s); }
-  capbox.appendChild(d); c.el=d;
-  c.t0=VOW[c[0]].s-0.04;
-  c.t1=(ci+1<CH.length)? VOW[CH[ci+1][0]].s-0.04 : VOW[c[1]].e+0.7;
+  const n=CH[ci+1], p=CH[ci-1];
+  // saída: começa logo depois da última palavra, mas sempre antes da próxima frase
+  c.xs = n ? Math.min(n.s0-0.12, Math.max(c.e1-0.06, n.s0-0.34)) : c.e1+0.3;
+  // entrada: a frase seguinte sobe enquanto a anterior já está saindo
+  c.tin = p ? p.xs : c.s0-0.25;                                         // mesma hora em que a anterior sai: uma empurra a outra
 });
 function mixc(a,b,p){ return a.map((v,i)=>Math.round(lerp(v,b[i],p))); }
 function captions(t,dark){
   const base=mixc([29,29,31],[255,255,255],dark), hi=mixc([47,123,207],[124,196,255],dark);
   CH.forEach(c=>{
-    const on=t>=c.t0-0.02 && t<c.t1+0.25;
+    const on = t>=c.tin-0.01 && t<c.xs+0.6;
     c.el.style.display=on?'block':'none'; if(!on) return;
-    const xo=clamp((t-c.t1)/0.22);
-    [...c.el.querySelectorAll('.w')].forEach(w=>{
-      const i=+w.dataset.i, s=VOW[i].s, e=VOW[i].e;
-      const a=clamp((t-s+0.05)/0.3), ea=EZ(a);
-      const act = t>=s-0.03 && t<e+0.06;
-      const em=EMPH.has(i);
-      let col = (em && t>=s) || act ? hi : base;
+    const drift=-10*EIO(clamp((t-c.tin)/Math.max(0.6,c.xs-c.tin)));       // a linha "respira" para cima enquanto fica na tela
+    if(c===CH[0]) c.el.style.letterSpacing=lerp(0.06,-0.01,EZ(clamp((t-c.tin)/0.9)))+'em';
+    c.el._w.forEach((w,j)=>{
+      const i=+w.dataset.i, s=VOW[i].s, em=EMPH.has(i);
+      const pin=EZ(clamp((t-c.tin-j*0.03)/0.44));                          // entrada em cascata
+      const f=EIO(clamp((t-(s-0.06))/0.2));                                // acende quando é falada
+      const q=EZ(clamp((t-c.xs-j*0.03)/0.44));                             // saída para cima, no mesmo ritmo da entrada
+      const col=em? mixc(base,hi,f) : base;
       w.style.color=`rgb(${col.join(',')})`;
-      const pop = em ? SPR(clamp((t-s+0.05)/0.45)) : ea;
-      const sc = (em? lerp(0.6,1,pop) : lerp(0.92,1,ea)) * (act?1.04:1);
-      w.style.opacity = clamp((t-s+0.05)/0.14)*(1-xo);
-      w.style.transform=`translate3d(0,${lerp(26,0,ea)-14*EX(xo)}px,0) scale(${sc})`;
-      const bl=lerp(12,0,ea)+10*xo; w.style.filter=bl>0.1?`blur(${bl}px)`:'none';
-      w.style.fontWeight = em? 800 : 650;
+      w.style.opacity=clamp(pin*1.5)*lerp(0.24,1,f)*(1-q);
+      const D=c.size*1.2;                                                   // deslocamento > altura das letras: as linhas nunca se tocam
+      const y=D*(1-pin)+drift-5*Math.sin(Math.PI*f)-D*q;
+      const sc=lerp(0.96,1,pin)*(em?1+0.05*f:1);
+      w.style.transform=`translate3d(0,${y}px,0) scale(${sc})`;
+      const bl=12*(1-pin)+12*q; w.style.filter=bl>0.1?`blur(${bl}px)`:'none';
     });
   });
 }
@@ -486,6 +500,7 @@ function render(t){
   $('grain').style.transform=`translate(${(F*137)%200}px,${(F*311)%200}px) scale(2)`;
   $('grain').style.opacity = 0.06 + dark*0.08;
 
+  $('capbox').style.transform=`translate3d(0,${4*Math.sin(t*0.8)}px,0) rotate(${0.15*Math.sin(t*0.4)}deg) scale(${1+(camS-1)*0.5})`;
   captions(t, dark);
 
   /* ---------- S1 noite ---------- */
