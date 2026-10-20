@@ -17,7 +17,7 @@ Motion graphics 9:16 (1080×1920, 60 qps, 24s) no estilo Apple, com a logo ofici
 |---|---|
 | "Psiu… a Black Friday tá chegando." | Céu noturno com um avião piscando ao longe, notificação de iPhone da Fly Upper, depois BLACK / FRIDAY (o FRIDAY vazado) e uma barra de carregamento. |
 | "E aqui na Fly Upper, ela vai DECOLAR!" | As nuvens estouram e a noite vira dia. O avião da Fly Upper voa sobre as nuvens com sombra projetada e, no "DECOLAR", sobe em direção à câmera com linhas de velocidade. Aparece a logo oficial com o selo BLACK FRIDAY. |
-| "Passagens e pacotes com preços de outro mundo." | Cards no estilo Apple Store: Passagens (avião numa rota tracejada) e Pacotes (planeta com o avião em órbita). |
+| "Passagens e pacotes com preços de outro mundo." | No estilo dos cards do Apple Maps: o botão-pílula "✈ Passagens" se expande num card com foto (Lisboa), com título digitado e espaçamento entre letras se fechando. No "pacotes", o card sai girando em 3D e uma linha azul leva até o card de Maceió. No "preços", entra o selo "Preço Black Friday". No "outro mundo", o card vira um planeta e a linha vira órbita, com o avião e as fotos dos destinos circulando. |
 | "Funciona assim… melhor tarifa… faz as malas." | iMessage, busca com a "Preço Black Friday" selecionada e cartão de embarque no estilo Wallet com check. |
 | "Pague no Pix ou parcele no cartão." | Pix aprovado, que gira e vira um cartão de crédito preto, com o seletor À vista / Parcelado. |
 | "Mas corre — que essas ofertas VOAM!" | Volta a noite: um timer circular corre, as ofertas voam para fora da tela e o avião cruza deixando rastro. |
@@ -32,7 +32,26 @@ python3 cues.py          # palavras + logo → assets/words.js
 
 Para revisar quadros soltos: `node stills.mjs pasta 1.6 5.6 19.2`. Para ver em tempo real, abra `index.html#play`, sem som.
 
+## Som
+
+- **Voz** (`sound.py`):
+  - EQ de locutor, compressão e saturação leve;
+  - "Psiu…" passeando entre os ouvidos, com reverb íntimo;
+  - reverb invertido puxando o "E aqui na Fly Upper";
+  - ecos em pingue-pongue no "DECOLAR!", no "VOAM!" e no "direct";
+  - "Funciona assim" com filtro de aviso de bordo, logo depois de um ding-dong de avião (a locução ganhou 0,55s de respiro nesse ponto).
+- **Trilha:** gerada no ElevenLabs Music (`assets/trilha.mp3`, 124 BPM) e editada por compassos:
+  - intro etérea sob o sussurro;
+  - drop no "DECOLAR";
+  - groove leve no "Funciona assim";
+  - trecho abafado no "Mas corre";
+  - drop de volta no "VOAM".
+  
+  A trilha abaixa sozinha quando a voz fala.
+- **Efeitos:** gerados no ElevenLabs Sound Effects (`assets/sfx/`): notificação, braam, passagem de jato, ding-dong de bordo, "ka-ching" do Pix, aproximação do cartão e whoosh. Somam-se a pops, ticks e brilhos sintetizados, todos alinhados pelo ataque real de cada arquivo.
+- `STEM=voz` ou `STEM=fundo` exportam só a voz ou só o fundo, para conferir a mixagem.
+
 ## Antes de publicar
 
-- As rotas e os preços dos cards (GRU → LIS, R$ 2.390 etc.) e os destinos do timer (Lisboa, Maceió, Nova York) são exemplos. Troque pelas ofertas reais da Black Friday.
-- A trilha e os efeitos são sintetizados em `sound.py`, sem samples de terceiros. Para usar uma música licenciada, substitua o bloco "trilha" e mantenha o sidechain com a voz.
+- As rotas e os preços (GRU → LIS, R$ 2.390 etc.) e os destinos (Lisboa, Maceió, Nova York) são exemplos. Troque pelas ofertas reais da Black Friday.
+- As fotos de Lisboa e Maceió foram geradas por IA (Seedream 5 Pro, via ElevenLabs). Se preferir, troque por fotos próprias em `assets/lisboa.jpg` e `assets/maceio.jpg`.

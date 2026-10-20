@@ -56,10 +56,17 @@ em{font-style:normal;color:var(--brand2)}
 .cl{position:absolute;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,1) 0%,rgba(255,255,255,.92) 35%,rgba(255,255,255,.45) 65%,rgba(255,255,255,0) 100%)}
 .spd{position:absolute;left:540px;top:900px;width:3px;height:260px;border-radius:2px;background:linear-gradient(180deg,rgba(47,123,207,0),rgba(47,123,207,.55));transform-origin:50% 0}
 
-/* S3 cards */
-.ofc{position:absolute;top:540px;width:470px;height:780px;border-radius:48px;overflow:hidden}
-.eye{font:600 24px/1 Inter;letter-spacing:.08em;text-transform:uppercase}
-.oft{font-weight:650;font-size:50px;letter-spacing:-0.035em;line-height:1.08}
+/* S3 ofertas — cards no estilo Apple Maps */
+.mcard{position:absolute;overflow:hidden;background:#fff;box-shadow:0 40px 100px rgba(16,50,90,.18),0 10px 30px rgba(16,50,90,.08);will-change:transform,filter}
+.mph{position:absolute;left:24px;right:24px;top:24px;height:520px;border-radius:40px;overflow:hidden;background:#DDE8F3}
+.mph .img{position:absolute;inset:0;background-size:cover;background-position:center}
+.mtit{position:absolute;left:44px;top:574px;font-weight:700;font-size:70px;letter-spacing:-0.035em;line-height:1;white-space:nowrap}
+.msub{position:absolute;left:46px;top:664px;font:500 30px/1 Inter;color:var(--ink3);white-space:nowrap}
+.mbtn{position:absolute;right:34px;top:596px;display:flex;align-items:center;gap:12px;padding:20px 30px;border-radius:999px;background:var(--brand2);color:#fff;font:600 30px/1 Inter;white-space:nowrap;box-shadow:0 10px 24px rgba(47,123,207,.35)}
+.mtag{position:absolute;left:48px;top:48px;padding:14px 22px;border-radius:999px;background:rgba(0,0,0,.42);color:#fff;font:700 22px/1 Inter;letter-spacing:.12em;backdrop-filter:blur(10px)}
+.mprice{position:absolute;left:48px;top:452px;display:flex;align-items:center;gap:12px;padding:18px 28px;border-radius:999px;background:#000;color:#fff;font:700 28px/1 Inter;white-space:nowrap;box-shadow:0 14px 34px rgba(0,0,0,.35)}
+.mprice i{width:12px;height:12px;border-radius:50%;background:var(--sky)}
+.dest{position:absolute;left:0;top:0;width:150px;height:150px;border-radius:50%;background-size:cover;background-position:center;border:6px solid #fff;box-shadow:0 16px 40px rgba(16,50,90,.25)}
 
 /* S4 */
 .dot{position:absolute;top:0;height:18px;border-radius:9px;background:#D2D2D7}
@@ -143,27 +150,44 @@ em{font-style:normal;color:var(--brand2)}
 
   <!-- ===== S3 · ofertas: "Passagens e pacotes com preços de outro mundo." ===== -->
   <div class="scene" id="s3">
-    <div class="abs c hd split" id="s3a" style="top:300px;font-size:84px">Black Friday.</div>
-    <div class="abs c hd gray split" id="s3b" style="top:392px;font-size:84px">Ofertas de outro mundo.</div>
-    <div class="abs" id="row3" style="left:0;top:0;width:1080px;height:1920px">
-      <div class="ofc card" id="ca" style="left:55px">
-        <div class="abs eye" style="left:46px;top:58px;color:var(--ink2)">Passagens</div>
-        <div class="abs oft" style="left:46px;top:104px;width:390px">Voe mais longe pagando menos.</div>
-        <svg class="abs" style="left:40px;top:400px" width="390" height="320" viewBox="0 0 390 320">
-          <path id="caArc" d="M30 290 C 90 120, 260 80, 350 40" fill="none" stroke="#2F7BCF" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 16"/>
-          <circle cx="30" cy="290" r="12" fill="#1F538C"/><circle cx="350" cy="40" r="12" fill="#fff" stroke="#1F538C" stroke-width="6"/>
-          <g id="caPl"><use href="#planeArt" transform="scale(.26) translate(-300,-320)"/></g>
-        </svg>
+    <div class="abs c hd split" id="s3a" style="top:236px;font-size:78px">Black Friday.</div>
+    <div class="abs c hd gray split" id="s3b" style="top:320px;font-size:78px">Ofertas de outro mundo.</div>
+    <div class="abs" id="s3w" style="left:0;top:0;width:1080px;height:1920px">
+      <svg class="abs" id="jline" style="left:0;top:0;filter:drop-shadow(0 8px 18px rgba(47,123,207,.45))" width="1080" height="1920" viewBox="0 0 1080 1920">
+        <path id="jl" d="M -40 1240 C 300 1460, 820 1400, 940 1080 S 1010 560, 760 440" fill="none" stroke="#2F7BCF" stroke-width="18" stroke-linecap="round"/>
+      </svg>
+      <!-- card A (nasce do botão-pílula) -->
+      <div class="mcard" id="cardA">
+        <div class="abs" id="pillLbl" style="inset:0;display:flex;align-items:center;justify-content:center;gap:16px;color:#fff;font:600 44px/1 Inter;letter-spacing:-0.01em;white-space:nowrap">
+          <svg width="44" height="44" viewBox="0 0 24 24" style="transform:rotate(45deg)"><path fill="#fff" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>Passagens</div>
+        <div class="abs" id="caIn" style="left:0;top:0;width:640px;height:820px">
+          <div class="mph"><div class="img" id="caImg" style="background-image:url(assets/lisboa.jpg)"></div><div class="mtag" id="caTag">PASSAGENS</div></div>
+          <div class="mtit chars" id="caT">Lisboa</div>
+          <div class="msub" id="caS">Portugal · ida e volta</div>
+          <div class="mbtn" id="caB">Ver oferta <svg width="26" height="26" viewBox="0 0 24 24" style="transform:rotate(45deg)"><path fill="#fff" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></div>
+        </div>
       </div>
-      <div class="ofc" id="cb" style="left:555px;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.25)">
-        <div class="abs eye" style="left:46px;top:58px;color:#A1A1A6">Pacotes</div>
-        <div class="abs oft" style="left:46px;top:104px;width:390px;color:#fff">Aéreo + hotel num só lugar.</div>
-        <div class="abs" id="planet" style="left:105px;top:420px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#8FD0FF 0%,#2F7BCF 35%,#1F538C 62%,#071A33 100%);box-shadow:0 0 80px 10px rgba(80,160,255,.35),inset -30px -30px 60px rgba(0,0,0,.45)"></div>
-        <svg class="abs" style="left:0;top:330px" width="470" height="440" viewBox="0 0 470 440">
-          <ellipse id="orbitB" cx="235" cy="220" rx="205" ry="70" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="3" stroke-dasharray="3 12" transform="rotate(-18 235 220)"/>
-          <g id="cbPl"><use href="#planeWhite" transform="scale(.15) translate(-300,-320)"/></g>
-        </svg>
+      <!-- órbita (atrás do planeta) -->
+      <svg class="abs" id="orbBack" style="left:0;top:0" width="1080" height="1920" viewBox="0 0 1080 1920"><path id="orbB" fill="none" stroke="#2F7BCF" stroke-width="14" stroke-linecap="round" opacity=".55"/></svg>
+      <!-- card B → planeta -->
+      <div class="mcard" id="cardB">
+        <div class="abs" id="cbIn" style="left:0;top:0;width:640px;height:820px">
+          <div class="mph"><div class="img" id="cbImg" style="background-image:url(assets/maceio.jpg)"></div><div class="mtag" id="cbTag">PACOTES</div>
+            <div class="mprice" id="cbPrice"><i></i>Preço Black Friday</div></div>
+          <div class="mtit chars" id="cbT">Maceió</div>
+          <div class="msub" id="cbS">Alagoas · aéreo + hotel</div>
+          <div class="mbtn" id="cbB">Ver oferta <svg width="26" height="26" viewBox="0 0 24 24" style="transform:rotate(45deg)"><path fill="#fff" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></div>
+        </div>
+        <div class="abs" id="planetFace" style="inset:0;border-radius:50%;background:radial-gradient(circle at 34% 28%,#BFE6FF 0%,#5AAEF0 18%,#2F7BCF 42%,#1F538C 66%,#0A2547 100%)">
+          <div class="abs" id="pBands" style="inset:0;border-radius:50%;background:radial-gradient(ellipse 60% 22% at 40% 55%,rgba(255,255,255,.22),rgba(255,255,255,0)),radial-gradient(ellipse 40% 14% at 62% 35%,rgba(255,255,255,.16),rgba(255,255,255,0)),radial-gradient(ellipse 30% 10% at 30% 75%,rgba(255,255,255,.12),rgba(255,255,255,0));background-size:200% 100%"></div>
+          <div class="abs" style="inset:0;border-radius:50%;box-shadow:inset -40px -46px 80px rgba(0,10,30,.55),inset 16px 16px 40px rgba(255,255,255,.25)"></div>
+        </div>
       </div>
+      <!-- órbita (na frente) + avião + destinos -->
+      <svg class="abs" id="orbFront" style="left:0;top:0;filter:drop-shadow(0 8px 18px rgba(47,123,207,.45))" width="1080" height="1920" viewBox="0 0 1080 1920"><path id="orbF" fill="none" stroke="#2F7BCF" stroke-width="14" stroke-linecap="round"/></svg>
+      <div class="dest" id="dsL" style="background-image:url(assets/lisboa.jpg)"></div>
+      <div class="dest" id="dsM" style="background-image:url(assets/maceio.jpg)"></div>
+      <div class="abs" id="orbPl" style="left:0;top:0;width:600px;height:640px"><svg width="600" height="640" viewBox="0 0 600 640"><use href="#planeArt"/></svg></div>
     </div>
   </div>
 
@@ -470,8 +494,13 @@ const gc=$('grain').getContext('2d'); const GT=[];
 (function(){ let s=99,r=()=>((s=(s*16807)%2147483647)/2147483647);
   for(let k=0;k<6;k++){ const id=gc.createImageData(740,1160); for(let i=0;i<id.data.length;i+=4){ const v=Math.floor(r()*255); id.data[i]=id.data[i+1]=id.data[i+2]=v; id.data[i+3]=255; } GT.push(id);} })();
 
-const caArc=$('caArc'), caL=caArc.getTotalLength();
+const JL=$('jl'), JLL=JL.getTotalLength();
 function along(path,len,p){ const a=path.getPointAtLength(clamp(p)*len), b=path.getPointAtLength(clamp(p+0.002)*len); return {x:a.x,y:a.y,ang:Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI}; }
+
+function caT_type(t,id,t0){
+  const el=$(id); el.style.letterSpacing=lerp(0.32,-0.035,EZ(clamp((t-t0)/0.55)))+'em';
+  el._w.forEach((w,i)=>{ const p=EZ(clamp((t-t0-i*0.035)/0.32)); w.style.opacity=p; w.style.filter=p<1?`blur(${8*(1-p)}px)`:'none'; w.style.transform=`translate3d(0,${10*(1-p)}px,0)`; });
+}
 
 /* ======================================================= */
 function render(t){
@@ -546,30 +575,79 @@ function render(t){
     SPD.forEach(s=>{ const p=clamp((t-kDec-0.05)/0.5); const on=p>0&&p<1; s.el.style.display=on?'block':'none'; if(!on) return;
       const r=lerp(120,900,EIN(p))*s.l; s.el.style.transform=`rotate(${s.a}deg) translate(0,${r}px) scaleY(${lerp(0.3,1.6,p)})`; s.el.style.opacity=Math.sin(Math.PI*p)*0.9; });
     // logo oficial
-    S('logoA',t,{o:[[kDec+0.4,0],[kDec+0.48,1,LIN],[kPass+0.2,1],[kPass+0.42,0,LIN]],s:[[kDec+0.4,0.75],[kDec+1.1,1,SPR],[kPass+0.2,1],[kPass+0.42,1.25,EX]],
-                 b:[[kDec+0.4,18],[kDec+0.7,0],[kPass+0.2,0],[kPass+0.42,24]],y:[[kPass+0.2,0],[kPass+0.42,-60,EX]]});
+    S('logoA',t,{o:[[kDec+0.4,0],[kDec+0.48,1,LIN],[kPass-0.14,1],[kPass+0.1,0,LIN]],s:[[kDec+0.4,0.75],[kDec+1.1,1,SPR],[kPass-0.14,1],[kPass+0.1,1.3,EX]],
+                 b:[[kDec+0.4,18],[kDec+0.7,0],[kPass-0.14,0],[kPass+0.1,26]],y:[[kPass-0.14,0],[kPass+0.1,-60,EX]]});
     $('logoA').style.transformOrigin='50% 40%';
-    S('bfA',t,{o:[[kDec+0.75,0],[kDec+0.8,1,LIN],[kPass+0.18,1],[kPass+0.38,0]],s:[[kDec+0.75,1.6],[kDec+1.05,1,EZ]],b:[[kDec+0.75,14],[kDec+0.95,0]]});
+    S('bfA',t,{o:[[kDec+0.75,0],[kDec+0.8,1,LIN],[kPass-0.16,1],[kPass+0.05,0]],s:[[kDec+0.75,1.6],[kDec+1.05,1,EZ]],b:[[kDec+0.75,14],[kDec+0.95,0]]});
   }
 
-  /* ---------- S3 ofertas ---------- */
-  if(scene('s3',t,kPass+0.25,kFunc+0.3)){
+  /* ---------- S3 ofertas: pílula → card (Lisboa) → linha → card (Maceió) → planeta ---------- */
+  if(scene('s3',t,kPass-0.05,kFunc+0.3)){
+    const kPrec=K(18), kMundo=K(21);
     S('s3',t,{o:[[kFunc-0.12,1],[kFunc+0.2,0,LIN]],b:[[kFunc-0.15,0],[kFunc+0.2,18,EX]],x:[[kFunc-0.15,0],[kFunc+0.25,-260,EX]]});
-    T('s3a',t,kPass+0.38,{st:0.07});
-    T('s3b',t,kPass+0.52,{st:0.06});
-    S('row3',t,{x:[[kPass,0],[kFunc,-40,EIO]]});
-    S('ca',t,{y:[[kPass+0.42,320],[kPass+1.1,0]],rx:[[kPass+0.42,26],[kPass+1.1,0]],s:[[kPass+0.42,0.9],[kPass+1.1,1]],b:[[kPass+0.42,18],[kPass+0.8,0]],o:[[kPass+0.42,0],[kPass+0.6,1,LIN]]});
-    S('cb',t,{y:[[kPac+0.1,320],[kPac+0.8,0]],rx:[[kPac+0.1,26],[kPac+0.8,0]],s:[[kPac+0.1,0.9],[kPac+0.8,1]],b:[[kPac+0.1,18],[kPac+0.5,0]],o:[[kPac+0.1,0],[kPac+0.3,1,LIN]]});
-    const ap=kf(t,[[kPass+0.7,0],[kPass+1.9,1]]); const pt=along(caArc,caL,ap);
-    $('caPl').setAttribute('transform',`translate(${pt.x},${pt.y}) rotate(${pt.ang+90})`);
-    caArc.style.strokeDashoffset = -t*40;
-    // planeta + órbita
-    const oa=(t-kPac)*1.6+0.6, ox=235+205*Math.cos(oa), oy=220+70*Math.sin(oa); const rot=-18*Math.PI/180;
-    const rx=235+(ox-235)*Math.cos(rot)-(oy-220)*Math.sin(rot), ry=220+(ox-235)*Math.sin(rot)+(oy-220)*Math.cos(rot);
-    const dx=-205*Math.sin(oa), dy=70*Math.cos(oa); const ang=Math.atan2(dx*Math.sin(rot)+dy*Math.cos(rot), dx*Math.cos(rot)-dy*Math.sin(rot))*180/Math.PI;
-    $('cbPl').setAttribute('transform',`translate(${rx},${ry}) rotate(${ang+90})`);
-    $('cbPl').style.opacity = Math.sin(oa)<-0.2 ? 0.25 : 1;
-    S('planet',t,{s:[[kPac+0.15,0.6],[kPac+0.95,1,SPR],[kOutro,1],[kOutro+0.5,1.08,SPR]]});
+    T('s3a',t,kPass+0.08,{st:0.07});
+    T('s3b',t,kOutro-0.2,{st:0.06});
+    S('s3w',t,{x:[[kPac-0.1,0],[kPac+0.6,-24],[kOutro,0]],ry:[[kPac-0.1,0],[kPac+0.5,-3],[kOutro,0]]});
+
+    // card A: pílula azul que se expande no card
+    const pa=SPR(clamp((t-kPass+0.02)/0.5)), m=EZ(clamp((t-(kPass+0.14))/0.42));
+    const wA=lerp(380,640,m), hA=lerp(110,820,m), A=$('cardA');
+    A.style.width=wA+'px'; A.style.height=hA+'px'; A.style.left=(540-wA/2)+'px'; A.style.top=lerp(825,470,m)+'px';
+    A.style.borderRadius=lerp(55,56,m)+'px';
+    A.style.background=`rgb(${mixc([47,123,207],[255,255,255],clamp(m*1.7)).join(',')})`;
+    A.style.boxShadow=`0 ${lerp(16,40,m)}px ${lerp(40,100,m)}px rgba(16,50,90,${lerp(0.3,0.18,m)})`;
+    S('cardA',t,{s:lerp(0.35,1,pa),o:[[kPass-0.03,0],[kPass+0.04,1,LIN],[kPac+0.08,1],[kPac+0.2,0,LIN]],
+      b:[[kPass-0.03,14],[kPass+0.15,0],[kPac-0.12,0],[kPac+0.18,16,EX]],x:[[kPac-0.12,0],[kPac+0.2,-900,EX]],ry:[[kPac-0.12,0],[kPac+0.2,62,EX]]});
+    A.style.transformOrigin='50% 50%';
+    $('pillLbl').style.opacity=1-clamp(m*2.6);
+    $('caIn').style.opacity=clamp((m-0.22)/0.3);
+    S('caImg',t,{s:[[kPass+0.2,1.3],[kPass+0.75,1]],b:[[kPass+0.2,12],[kPass+0.55,0]]});
+    caT_type(t,'caT',kPass+0.34);
+    S('caS',t,{o:[[kPass+0.46,0],[kPass+0.7,1]],y:[[kPass+0.46,14],[kPass+0.75,0]]});
+    S('caB',t,{s:[[kPass+0.42,0.4],[kPass+0.85,1,SPR]],o:[[kPass+0.42,0],[kPass+0.5,1,LIN]]});
+    S('caTag',t,{s:[[kPass+0.48,0.5],[kPass+0.9,1,SPR]],o:[[kPass+0.48,0],[kPass+0.56,1,LIN]]});
+
+    // linha azul (cometa) que leva a câmera até o próximo card
+    const hd=kf(t,[[kPac-0.08,0],[kPac+0.45,1]]), tl=kf(t,[[kPac+0.1,0],[kPac+0.7,1]]);
+    JL.style.strokeDasharray=`${Math.max(0.1,(hd-tl)*JLL)} ${JLL*2}`; JL.style.strokeDashoffset=-tl*JLL;
+    $('jline').style.display=(t>kPac-0.1&&t<kPac+0.75)?'block':'none';
+
+    // card B: entra girando em 3D; no "outro mundo" vira o planeta
+    const B=$('cardB'), pm=EZ(clamp((t-(kOutro-0.14))/0.5));
+    const wB=lerp(640,400,pm), hB=lerp(820,400,pm);
+    B.style.width=wB+'px'; B.style.height=hB+'px'; B.style.left=(540-wB/2)+'px'; B.style.top=lerp(470,660,pm)+'px';
+    B.style.borderRadius=lerp(56,200,pm)+'px'; B.style.background=`rgba(255,255,255,${1-clamp((pm-0.02)/0.18)})`;
+    B.style.boxShadow=`0 40px 100px rgba(16,50,90,${lerp(0.18,0.1,pm)}), 0 0 ${lerp(0,140,pm)}px ${lerp(0,24,pm)}px rgba(80,160,255,${lerp(0,0.45,pm)*(1+0.4*Math.sin(Math.PI*clamp((t-kMundo)/0.6)))})`;
+    S('cardB',t,{x:[[kPac+0.02,860],[kPac+0.52,0]],ry:[[kPac+0.02,-58],[kPac+0.52,0]],b:[[kPac+0.02,16],[kPac+0.4,0]],o:[[kPac+0.02,0],[kPac+0.12,1,LIN]],
+      s:[[kPac+0.02,0.92],[kPac+0.52,1],[kMundo,1],[kMundo+0.5,1.04,SPR]],r:2*Math.sin((t-kPac)*1.3)*(1-pm)});
+    B.style.transformOrigin='50% 50%';
+    $('cbIn').style.opacity=1-clamp(pm*2.2);
+    $('planetFace').style.opacity=clamp((pm-0.04)/0.3); $('pBands').style.backgroundPosition=`${(t*18)%200}% 0`;
+    S('cbImg',t,{s:[[kPac+0.1,1.3],[kPac+0.7,1]],b:[[kPac+0.1,12],[kPac+0.45,0]]});
+    caT_type(t,'cbT',kPac+0.28);
+    S('cbS',t,{o:[[kPac+0.4,0],[kPac+0.65,1]],y:[[kPac+0.4,14],[kPac+0.7,0]]});
+    S('cbB',t,{s:[[kPac+0.36,0.4],[kPac+0.8,1,SPR]],o:[[kPac+0.36,0],[kPac+0.44,1,LIN]]});
+    S('cbTag',t,{s:[[kPac+0.42,0.5],[kPac+0.85,1,SPR]],o:[[kPac+0.42,0],[kPac+0.5,1,LIN]]});
+    S('cbPrice',t,{s:[[kPrec-0.04,0.3],[kPrec+0.45,1,SPR]],o:[[kPrec-0.04,0],[kPrec+0.03,1,LIN]],b:[[kPrec-0.04,10],[kPrec+0.15,0]]});
+
+    // órbita: a linha azul volta e vira o anel em volta do planeta
+    const ob=clamp((t-(kOutro+0.05))/0.55), obE=EZ(ob), R=$('orbF'), Rb=$('orbB');
+    const cx=540, cy=860, rx=330, ry=104, rot=-14*Math.PI/180;
+    const P=a=>{ const x=rx*Math.cos(a), y=ry*Math.sin(a); return [cx+x*Math.cos(rot)-y*Math.sin(rot), cy+x*Math.sin(rot)+y*Math.cos(rot)]; };
+    const arc=(a0,a1)=>{ let d=''; const n=48; for(let i=0;i<=n;i++){ const p=P(lerp(a0,a1,i/n)); d+=(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)+' '; } return d; };
+    const sweep=obE*Math.PI*2, a0=-Math.PI*0.15;
+    // metade da frente (sen>0) na frente do planeta; metade de trás atrás dele
+    R.setAttribute('d', ob>0? arc(Math.max(a0,0), Math.max(0,Math.min(a0+sweep,Math.PI))) : '');
+    Rb.setAttribute('d', ob>0? arc(Math.max(a0,Math.PI), Math.max(Math.PI,a0+sweep)) + (a0<0? arc(a0,Math.min(0,a0+sweep)):'') : '');
+    $('orbFront').style.opacity=$('orbBack').style.opacity=kf(t,[[kOutro,0],[kOutro+0.1,1]]);
+    // avião e destinos girando na órbita
+    const ang=a0+sweep+ (t-(kOutro+0.6))*0.9*(t>kOutro+0.6?1:0);
+    const pp=P(ang), pn=P(ang+0.01), front=Math.sin(ang)>0;
+    S('orbPl',t,{x:pp[0]-300,y:pp[1]-320,r:Math.atan2(pn[1]-pp[1],pn[0]-pp[0])*180/Math.PI+90,s:0.26,o:ob>0.02?1:0});
+    $('orbPl').style.zIndex=front?6:1; $('orbFront').style.zIndex=5; $('orbBack').style.zIndex=1; B.style.zIndex=3;
+    [['dsL',Math.PI*0.95],['dsM',Math.PI*0.25]].forEach(([id,off])=>{ const a=off+(t-kMundo)*0.5, q=P(a);
+      const e=$(id); e.style.zIndex=Math.sin(a)>0?6:2;
+      S(id,t,{x:q[0]-75,y:q[1]-75,s:[[kMundo-0.08,0],[kMundo+0.45,Math.sin(a)>0?1:0.82,SPR]],o:[[kMundo-0.08,0],[kMundo,1,LIN]],b:[[kMundo-0.08,12],[kMundo+0.2,Math.sin(a)>0?0:3]]}); });
   }
 
   /* ---------- S4 como funciona ---------- */

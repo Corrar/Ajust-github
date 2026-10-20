@@ -8,7 +8,8 @@ import json
 import re
 
 OFFSET = 0.5          # a voz entra 0,5s depois do início do vídeo
-DURATION = 24.0       # duração total (locução + respiro do lockup final)
+DURATION = 24.5       # duração total (locução + respiro do lockup final)
+GAP_FROM, GAP = 22, 0.55   # respiro antes do "Funciona assim" para o ding-dong de bordo
 FIX = {               # índice → (início, fim) medidos na forma de onda
     0: (0.11, 0.40),  # "Psiu…"
     5: (1.72, 2.14),  # "chegando"
@@ -23,12 +24,15 @@ words = [w for w in raw if not re.fullmatch(r'\[.*\]', w['text']) and w['text'] 
 out = []
 for i, w in enumerate(words):
     s, e = FIX.get(i, (w['start'], w['end']))
+    if i >= GAP_FROM:
+        s, e = s + GAP, e + GAP
     txt = re.sub(r'[.,:]+$', '', w['text'])
     out.append({'w': txt, 's': round(s, 3), 'e': round(e, 3)})
 emph = [i for i, w in enumerate(out) if re.sub(r'[!…]', '', w['w']) in EMPH]
 logo = json.load(open('assets/logo_paths.json'))
 with open('assets/words.js', 'w') as f:
-    f.write('window.VO=' + json.dumps({'offset': OFFSET, 'duration': DURATION, 'words': out, 'emph': emph}, ensure_ascii=False) + ';\n')
+    f.write('window.VO=' + json.dumps({'offset': OFFSET, 'duration': DURATION, 'words': out, 'emph': emph,
+                                       'gap': {'cut': 8.30, 'len': GAP}}, ensure_ascii=False) + ';\n')
     f.write('window.LOGO=' + json.dumps(logo) + ';\n')
 for i, w in enumerate(out):
     print(i, w['w'], w['s'], w['e'], '*' if i in emph else '')
