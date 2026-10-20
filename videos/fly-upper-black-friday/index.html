@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Fly Upper — Black Friday</title>
+<style>
+:root{
+  --bg:#FFFFFF; --soft:#F5F5F7; --line:#E5E5EA;
+  --ink:#1D1D1F; --ink2:#6E6E73; --ink3:#86868B;
+  --brand:#1F538C; --brand2:#2F7BCF; --sky:#7CC4FF; --skyBg:#EAF3FC;
+  --green:#34C759;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#fff}
+body{font-family:"Inter Display","Inter",system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;font-feature-settings:"ss03","cv11"}
+#stage{position:absolute;inset:0;overflow:hidden;background:#fff}
+#cam{position:absolute;inset:0;transform-origin:540px 960px}
+.scene{position:absolute;inset:0;perspective:1800px;transform-origin:540px 960px;display:none}
+.abs{position:absolute}
+.c{left:0;right:0;text-align:center}
+.w{display:inline-block;white-space:pre;will-change:transform,opacity,filter}
+.hd{font-weight:600;letter-spacing:-0.035em;line-height:1.06}
+.gray{color:var(--ink3)}
+em{font-style:normal;color:var(--brand2)}
+.ui{font-family:"Inter",system-ui,sans-serif;letter-spacing:-0.01em}
+.tn{font-feature-settings:"tnum"}
+.card{background:#fff;border-radius:56px;box-shadow:0 30px 80px rgba(16,50,90,.10),0 8px 24px rgba(16,50,90,.06);border:1px solid rgba(0,0,0,.04)}
+.bfpill{display:inline-flex;align-items:center;gap:14px;padding:18px 34px;border-radius:999px;background:#000;color:#fff;font:800 34px/1 "Inter Display";letter-spacing:.16em;white-space:nowrap}
+.bfpill i{width:14px;height:14px;border-radius:50%;background:var(--sky);display:inline-block}
+
+/* fx */
+#leak{position:absolute;width:1700px;height:2600px;left:-310px;top:-340px;background:radial-gradient(closest-side,rgba(140,200,255,.55),rgba(190,225,255,.22) 45%,rgba(255,255,255,0));pointer-events:none}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+#vig{position:absolute;inset:0;background:radial-gradient(ellipse 75% 60% at 50% 48%,rgba(0,0,0,0) 55%,rgba(10,30,60,.06) 100%);pointer-events:none}
+#grain{position:absolute;left:-200px;top:-200px;width:1480px;height:2320px;mix-blend-mode:overlay;opacity:.10;pointer-events:none;transform-origin:0 0}
+
+/* legendas */
+#capbox{position:absolute;left:60px;right:60px;top:1405px;height:220px;text-align:center;pointer-events:none}
+.cap{position:absolute;left:0;right:0;top:0;font:650 66px/1.12 "Inter Display";letter-spacing:-0.03em}
+.cap .w{transform-origin:50% 80%;margin:0 .12em}
+
+/* S1 noite */
+.star{position:absolute;width:4px;height:4px;border-radius:50%;background:#fff}
+#nt{left:40px;right:40px;top:80px;height:150px;border-radius:46px;background:rgba(38,38,42,.92);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:26px;padding:0 34px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.appic{width:86px;height:86px;border-radius:22px;background:var(--brand);display:flex;align-items:center;justify-content:center;flex:none}
+#bf1{top:690px;font-size:262px;font-weight:800;letter-spacing:-0.045em;color:#fff;line-height:1}
+#bf2{top:935px;font-size:262px;font-weight:800;letter-spacing:-0.045em;color:transparent;-webkit-text-stroke:4px #fff;line-height:1}
+#bfp{left:240px;top:1240px;width:600px;height:12px;border-radius:6px;background:rgba(255,255,255,.14);overflow:hidden}
+#bfpf{position:absolute;left:0;top:0;bottom:0;width:100%;border-radius:6px;background:linear-gradient(90deg,#fff,#7CC4FF);transform-origin:0 50%}
+.puff{position:absolute;border-radius:50%;background:radial-gradient(closest-side,#fff 0%,#fff 55%,rgba(255,255,255,0) 100%)}
+
+/* S2 céu */
+#sky{position:absolute;inset:0;background:linear-gradient(180deg,#FFFFFF 0%,#F2F8FE 45%,#DDEDFB 100%)}
+.cl{position:absolute;border-radius:50%;background:radial-gradient(closest-side at 50% 45%,#FFFFFF 0%,#FFFFFF 45%,rgba(236,244,252,.85) 70%,rgba(255,255,255,0) 100%)}
+.spd{position:absolute;left:540px;top:900px;width:3px;height:260px;border-radius:2px;background:linear-gradient(180deg,rgba(47,123,207,0),rgba(47,123,207,.55));transform-origin:50% 0}
+
+/* S3 cards */
+.ofc{position:absolute;top:540px;width:470px;height:780px;border-radius:48px;overflow:hidden}
+.eye{font:600 24px/1 Inter;letter-spacing:.08em;text-transform:uppercase}
+.oft{font-weight:650;font-size:50px;letter-spacing:-0.035em;line-height:1.08}
+
+/* S4 */
+.dot{position:absolute;top:0;height:18px;border-radius:9px;background:#D2D2D7}
+.bub{position:absolute;padding:30px 40px;border-radius:48px;font:500 44px/1.22 "Inter",sans-serif;letter-spacing:-0.015em;white-space:nowrap}
+.bub.me{background:linear-gradient(180deg,#3E8EE0,#2F7BCF);color:#fff;border-bottom-right-radius:14px}
+.bub.them{background:#E9E9EB;color:var(--ink);border-bottom-left-radius:14px}
+.tdot{display:inline-block;width:20px;height:20px;border-radius:50%;background:#8E8E93;margin:0 6px}
+.row{position:absolute;left:110px;width:860px;height:150px;border-radius:40px;background:#fff;border:2px solid var(--line);display:flex;align-items:center;padding:0 36px;gap:28px}
+.ric{width:84px;height:84px;border-radius:50%;background:var(--soft);display:flex;align-items:center;justify-content:center;flex:none;font-size:38px}
+.rtx{flex:1}
+.rtx .t{font:600 38px/1.1 "Inter",sans-serif;letter-spacing:-0.02em}
+.rtx .s{font:500 26px/1.3 "Inter",sans-serif;color:var(--ink3)}
+.rpr{font:700 46px/1 "Inter",sans-serif;letter-spacing:-0.02em}
+.badge{display:inline-flex;align-items:center;gap:12px;padding:16px 28px;border-radius:999px;font:700 30px/1 "Inter",sans-serif;white-space:nowrap}
+#pass{left:150px;top:540px;width:780px;height:790px;border-radius:52px;background:#fff;overflow:hidden;box-shadow:0 40px 100px rgba(16,50,90,.16),0 10px 30px rgba(16,50,90,.08)}
+.passhd{height:150px;background:linear-gradient(120deg,#3E8EE0,#1F538C);display:flex;align-items:center;justify-content:space-between;padding:0 48px;color:#fff}
+.code{font-weight:700;font-size:112px;letter-spacing:-0.04em;line-height:1}
+.city{font:500 30px/1 "Inter",sans-serif;color:var(--ink3)}
+.fl{font:500 22px/1 "Inter",sans-serif;letter-spacing:.08em;color:var(--ink3);text-transform:uppercase;margin-bottom:12px}
+.fv{font:700 40px/1 "Inter",sans-serif;letter-spacing:-0.02em}
+
+/* S5 */
+#pixc{left:110px;top:560px;width:860px;height:720px}
+.rr{display:flex;justify-content:space-between;font:500 32px/1 "Inter",sans-serif;padding:26px 0;border-top:2px solid var(--soft)}
+.rr span:first-child{color:var(--ink3)}
+#cc{left:130px;top:600px;width:820px;height:517px;border-radius:44px;background:linear-gradient(135deg,#2B2B30 0%,#121214 55%,#000 100%);box-shadow:0 40px 90px rgba(0,0,0,.30),inset 0 1px 0 rgba(255,255,255,.18);overflow:hidden;color:#fff}
+.chipc{position:absolute;left:70px;top:190px;width:118px;height:90px;border-radius:18px;background:linear-gradient(135deg,#E9E3D3,#B9AE92)}
+#seg{left:200px;top:1190px;width:680px;height:96px;border-radius:30px;background:#EEEEF0}
+#segk{position:absolute;top:8px;left:8px;width:328px;height:80px;border-radius:24px;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.segl{position:absolute;top:0;width:340px;height:96px;display:flex;align-items:center;justify-content:center;font:600 34px/1 Inter;color:var(--ink)}
+
+/* S6 urgência */
+#ring{left:250px;top:560px;width:580px;height:580px}
+.tag{position:absolute;padding:24px 34px;border-radius:999px;background:#fff;color:var(--ink);font:650 40px/1 Inter;letter-spacing:-0.02em;white-space:nowrap;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+
+/* S7 CTA */
+#btn{left:190px;top:840px;width:700px;height:160px;border-radius:999px;background:linear-gradient(180deg,#3E8EE0,#1F538C);color:#fff;display:flex;align-items:center;justify-content:center;gap:24px;font:600 52px/1 "Inter";letter-spacing:-0.02em;box-shadow:0 24px 60px rgba(31,83,140,.40),inset 0 2px 0 rgba(255,255,255,.35)}
+#ring2{left:170px;top:820px;width:740px;height:200px;border-radius:999px;border:4px solid var(--brand2)}
+#touch{left:0;top:0;width:110px;height:110px;border-radius:50%;background:rgba(120,120,128,.35);border:4px solid rgba(255,255,255,.9);box-shadow:0 10px 30px rgba(0,0,0,.15)}
+#rip{left:0;top:0;width:110px;height:110px;border-radius:50%;border:5px solid var(--brand2)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="cam">
+
+  <!-- ===== S1 · noite: "Psiu… a Black Friday tá chegando." ===== -->
+  <div class="scene" id="s1">
+    <div id="stars"></div>
+    <div class="abs" id="farplane" style="left:0;top:0;width:60px;height:20px">
+      <div class="abs" id="nlR" style="left:0;top:6px;width:9px;height:9px;border-radius:50%;background:#FF453A;box-shadow:0 0 14px 4px rgba(255,69,58,.6)"></div>
+      <div class="abs" id="nlG" style="left:50px;top:6px;width:9px;height:9px;border-radius:50%;background:#30D158;box-shadow:0 0 14px 4px rgba(48,209,88,.6)"></div>
+      <div class="abs" id="nlW" style="left:25px;top:4px;width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 30px 10px rgba(255,255,255,.8)"></div>
+    </div>
+    <div class="abs" id="nt">
+      <div class="appic"><svg width="62" height="62" viewBox="160 95 273 377"><path id="mk1" fill="#fff" fill-rule="evenodd"/></svg></div>
+      <div style="flex:1">
+        <div style="display:flex;justify-content:space-between;font:600 30px/1 Inter;color:#fff"><span>Fly Upper</span><span style="color:#8E8E93;font-weight:500">agora</span></div>
+        <div style="font:500 32px/1.25 Inter;color:#EBEBF5;margin-top:10px">🤫 Psiu… tem novidade chegando.</div>
+      </div>
+    </div>
+    <div class="abs c hd chars" id="bf1">BLACK</div>
+    <div class="abs c hd chars" id="bf2">FRIDAY</div>
+    <div class="abs" id="bfp"><div id="bfpf"></div></div>
+    <div id="burst"></div>
+  </div>
+
+  <!-- ===== S2 · decolagem: "E aqui na Fly Upper, ela vai DECOLAR!" ===== -->
+  <div class="scene" id="s2">
+    <div id="sky"></div>
+    <div id="clouds" style="position:absolute;inset:0;z-index:0"></div>
+    <div class="abs" id="pshadow" style="left:240px;top:560px;width:600px;height:640px;z-index:1"><svg width="600" height="640" viewBox="0 0 600 640"><use href="#planeSil" fill="#0B2A4F"/></svg></div>
+    <div id="speed" style="position:absolute;inset:0;z-index:2"></div>
+    <div class="abs" id="plane" style="left:240px;top:560px;width:600px;height:640px;z-index:3"><svg width="600" height="640" viewBox="0 0 600 640"><use href="#planeArt"/></svg></div>
+    <div id="cloudsTop" style="position:absolute;inset:0;z-index:4"></div>
+    <div class="abs" id="logoA" style="left:280px;top:330px;width:520px;height:737px;z-index:6">
+      <svg width="520" height="737" viewBox="60 80 480 680"><g fill="#1F538C"><path id="mk2" fill-rule="evenodd"/><path id="ag2"/><path id="vg2"/><path id="dp2"/><path id="l12"/><path id="l22"/></g></svg>
+    </div>
+    <div class="abs c" id="bfA" style="top:1150px;z-index:6"><span class="bfpill"><i></i>BLACK FRIDAY</span></div>
+  </div>
+
+  <!-- ===== S3 · ofertas: "Passagens e pacotes com preços de outro mundo." ===== -->
+  <div class="scene" id="s3">
+    <div class="abs c hd split" id="s3a" style="top:300px;font-size:84px">Black Friday.</div>
+    <div class="abs c hd gray split" id="s3b" style="top:392px;font-size:84px">Ofertas de outro mundo.</div>
+    <div class="abs" id="row3" style="left:0;top:0;width:1080px;height:1920px">
+      <div class="ofc card" id="ca" style="left:55px">
+        <div class="abs eye" style="left:46px;top:58px;color:var(--ink2)">Passagens</div>
+        <div class="abs oft" style="left:46px;top:104px;width:390px">Voe mais longe pagando menos.</div>
+        <svg class="abs" style="left:40px;top:400px" width="390" height="320" viewBox="0 0 390 320">
+          <path id="caArc" d="M30 290 C 90 120, 260 80, 350 40" fill="none" stroke="#2F7BCF" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 16"/>
+          <circle cx="30" cy="290" r="12" fill="#1F538C"/><circle cx="350" cy="40" r="12" fill="#fff" stroke="#1F538C" stroke-width="6"/>
+          <g id="caPl"><use href="#planeArt" transform="scale(.26) translate(-300,-320)"/></g>
+        </svg>
+      </div>
+      <div class="ofc" id="cb" style="left:555px;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.25)">
+        <div class="abs eye" style="left:46px;top:58px;color:#A1A1A6">Pacotes</div>
+        <div class="abs oft" style="left:46px;top:104px;width:390px;color:#fff">Aéreo + hotel num só lugar.</div>
+        <div class="abs" id="planet" style="left:105px;top:420px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#8FD0FF 0%,#2F7BCF 35%,#1F538C 62%,#071A33 100%);box-shadow:0 0 80px 10px rgba(80,160,255,.35),inset -30px -30px 60px rgba(0,0,0,.45)"></div>
+        <svg class="abs" style="left:0;top:330px" width="470" height="440" viewBox="0 0 470 440">
+          <ellipse id="orbitB" cx="235" cy="220" rx="205" ry="70" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="3" stroke-dasharray="3 12" transform="rotate(-18 235 220)"/>
+          <g id="cbPl"><use href="#planeWhite" transform="scale(.15) translate(-300,-320)"/></g>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== S4 · como funciona ===== -->
+  <div class="scene" id="s4">
+    <div class="abs c hd split" id="s4a" style="top:300px;font-size:84px">Funciona assim.</div>
+    <div class="abs" id="dots" style="left:0;top:432px;width:1080px;height:18px"><div class="dot" id="d1"></div><div class="dot" id="d2"></div><div class="dot" id="d3"></div></div>
+    <div class="abs" id="p1" style="left:0;top:0;width:1080px;height:1920px">
+      <div class="abs c ui" id="imh" style="top:560px"><div style="font:600 30px/1 Inter;color:var(--ink2)">iMessage</div><div style="font:500 24px/1 Inter;color:var(--ink3);margin-top:10px">Hoje 09:41</div></div>
+      <div class="bub me" id="bu1" style="right:90px;top:680px">Quero ir pra Lisboa ✈️</div>
+      <div class="bub them" id="typ" style="left:90px;top:880px;padding:34px 34px"><span class="tdot"></span><span class="tdot"></span><span class="tdot"></span></div>
+      <div class="bub them" id="bu2" style="left:90px;top:880px">Bora! Já tô buscando 🔎</div>
+    </div>
+    <div class="abs" id="p2" style="left:0;top:0;width:1080px;height:1920px">
+      <div class="abs ui" id="srch" style="left:110px;top:540px;width:860px;height:104px;border-radius:30px;background:#F2F2F7;display:flex;align-items:center;padding:0 34px;gap:20px;font:500 40px/1 Inter">
+        <svg width="40" height="40" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" stroke="#8E8E93" stroke-width="2.6" fill="none"/><path d="M15.5 15.5L21 21" stroke="#8E8E93" stroke-width="2.6" stroke-linecap="round"/></svg>
+        <span id="stx"></span><span id="caret" style="width:4px;height:48px;background:var(--brand2);border-radius:2px"></span>
+      </div>
+      <div class="row" id="r1" style="top:690px"><div class="ric">✈️</div><div class="rtx"><div class="t">GRU → LIS</div><div class="s">2 paradas · 19h 05m</div></div><div class="rpr tn">R$ 4.120</div></div>
+      <div class="row" id="r2" style="top:860px"><div class="ric">✈️</div><div class="rtx"><div class="t">GRU → LIS</div><div class="s">1 parada · 14h 20m</div></div><div class="rpr tn">R$ 3.560</div></div>
+      <div class="row" id="r3" style="top:1030px"><div class="ric" id="r3ic">✈️</div><div class="rtx"><div class="t">GRU → LIS</div><div class="s">Direto · 10h 15m</div></div><div class="rpr tn" style="color:var(--brand2)">R$ 2.390</div></div>
+      <div class="abs" id="scan" style="left:90px;top:670px;width:900px;height:8px;border-radius:4px;background:linear-gradient(90deg,rgba(47,123,207,0),#2F7BCF 30%,#8AC6FF 50%,#2F7BCF 70%,rgba(47,123,207,0));box-shadow:0 0 40px 10px rgba(47,123,207,.35)"></div>
+      <div class="abs" id="bbadge" style="right:130px;top:990px"><span class="badge" style="background:#000;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.25)">Preço Black Friday</span></div>
+    </div>
+    <div class="abs" id="p3" style="left:0;top:0;width:1080px;height:1920px">
+      <div class="abs" id="pass">
+        <div class="passhd">
+          <svg width="230" height="70" viewBox="0 0 230 70"><g transform="translate(0,4) scale(.165)"><svg width="330" height="380" viewBox="160 95 273 377"><path id="mk3" fill="#fff" fill-rule="evenodd"/></svg></g><text x="64" y="47" fill="#fff" font-family="Inter Display" font-weight="700" font-size="38" letter-spacing="-1">Fly Upper</text></svg>
+          <div style="font:600 22px/1.2 Inter;letter-spacing:.1em;text-align:right;margin-right:40px">EMBARQUE</div>
+        </div>
+        <div style="padding:44px 48px 0">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div><div class="code">GRU</div><div class="city" style="margin-top:10px">São Paulo</div></div>
+            <svg width="70" height="70" viewBox="0 0 24 24" style="transform:rotate(90deg);margin-bottom:40px"><path fill="#2F7BCF" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+            <div style="text-align:right"><div class="code">LIS</div><div class="city" style="margin-top:10px">Lisboa</div></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;margin-top:46px">
+            <div><div class="fl">Passageiro</div><div class="fv">Você</div></div>
+            <div><div class="fl">Tarifa</div><div class="fv">Black</div></div>
+            <div style="text-align:right"><div class="fl">Assento</div><div class="fv">14A</div></div>
+          </div>
+        </div>
+        <div style="position:relative;margin:44px 0 0;height:2px;border-top:4px dashed #E5E5EA"></div>
+        <div style="position:absolute;left:-30px;top:578px;width:60px;height:60px;border-radius:50%;background:#fff;box-shadow:inset -8px 0 14px rgba(16,50,90,.08)"></div>
+        <div style="position:absolute;right:-30px;top:578px;width:60px;height:60px;border-radius:50%;background:#fff;box-shadow:inset 8px 0 14px rgba(16,50,90,.08)"></div>
+        <div style="display:flex;justify-content:center;margin-top:36px"><svg id="qr" width="150" height="150" viewBox="0 0 29 29" shape-rendering="crispEdges"></svg></div>
+        <div id="pshine" style="position:absolute;left:-400px;top:0;width:260px;height:100%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.75),rgba(255,255,255,0));transform:skewX(-18deg)"></div>
+      </div>
+      <div class="abs" id="ok" style="left:872px;top:452px;width:150px;height:150px;border-radius:50%;background:var(--green);box-shadow:0 18px 40px rgba(52,199,89,.45);display:flex;align-items:center;justify-content:center">
+        <svg width="90" height="90" viewBox="0 0 90 90"><path id="okp" d="M22 47l15 15 32-34" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== S5 · pagamento ===== -->
+  <div class="scene" id="s5">
+    <div class="abs c hd split" id="s5a" style="top:300px;font-size:84px">Pague do seu jeito.</div>
+    <div class="abs card" id="pixc">
+      <div class="abs" id="px0" style="left:56px;top:56px;display:flex;align-items:center;gap:18px">
+        <svg width="56" height="56" viewBox="0 0 56 56"><rect x="10" y="10" width="36" height="36" rx="9" transform="rotate(45 28 28)" fill="#32BCAD"/><rect x="19" y="19" width="18" height="18" rx="4" transform="rotate(45 28 28)" fill="none" stroke="#fff" stroke-width="4"/></svg>
+        <span style="font:700 38px/1 Inter;letter-spacing:-0.02em">Pix</span>
+      </div>
+      <div class="abs" id="px1" style="left:355px;top:130px;width:150px;height:150px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;box-shadow:0 18px 40px rgba(52,199,89,.4)">
+        <svg width="90" height="90" viewBox="0 0 90 90"><path id="pxp" d="M22 47l15 15 32-34" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="abs c hd" id="px2" style="top:320px;font-size:64px">Pix aprovado</div>
+      <div class="abs c ui" id="px3" style="top:402px;font:500 38px/1 Inter;color:var(--ink3)">Confirmação na hora.</div>
+      <div class="abs" id="px4" style="left:56px;right:56px;top:500px">
+        <div class="rr"><span>Para</span><span>Fly Upper Viagens</span></div>
+        <div class="rr"><span>Tarifa</span><span>Black Friday</span></div>
+      </div>
+    </div>
+    <div class="abs" id="cc">
+      <div class="abs" style="left:70px;top:70px;font:700 40px/1 'Inter Display';letter-spacing:-0.03em">Crédito</div>
+      <svg class="abs" style="right:70px;top:66px" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#A1A1A6" stroke-width="2" stroke-linecap="round"><path d="M8.5 7.5a6.5 6.5 0 0 1 0 9"/><path d="M12 5a10 10 0 0 1 0 14"/><path d="M15.5 2.5a13.5 13.5 0 0 1 0 19"/></svg>
+      <div class="chipc"></div>
+      <div class="abs ui tn" style="left:70px;top:380px;font:600 44px/1 Inter;letter-spacing:.08em;color:#D1D1D6">•••• 2026</div>
+      <div class="abs" style="right:70px;top:372px;width:120px;height:72px">
+        <div style="position:absolute;left:0;top:0;width:72px;height:72px;border-radius:50%;background:#2F7BCF;opacity:.95"></div>
+        <div style="position:absolute;right:0;top:0;width:72px;height:72px;border-radius:50%;background:#7CC4FF;opacity:.85"></div>
+      </div>
+      <div id="ccs" style="position:absolute;top:-100px;left:-500px;width:300px;height:800px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.28),rgba(255,255,255,0));transform:rotate(20deg)"></div>
+    </div>
+    <div class="abs" id="seg"><div id="segk"></div><div class="segl" style="left:0">À vista</div><div class="segl" style="left:340px">Parcelado</div></div>
+  </div>
+
+  <!-- ===== S6 · urgência: "Mas corre — que essas ofertas VOAM!" ===== -->
+  <div class="scene" id="s6">
+    <svg class="abs" id="ring" viewBox="0 0 580 580">
+      <circle cx="290" cy="290" r="250" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="30"/>
+      <circle id="ringp" cx="290" cy="290" r="250" fill="none" stroke="#7CC4FF" stroke-width="30" stroke-linecap="round" transform="rotate(-90 290 290)"/>
+    </svg>
+    <div class="abs c ui" id="rlab" style="top:705px;font:700 30px/1 Inter;letter-spacing:.24em;color:#A1A1A6">BLACK FRIDAY</div>
+    <div class="abs c tn" id="rnum" style="top:760px;font-weight:300;font-size:170px;letter-spacing:-0.03em;color:#fff;line-height:1">00:59</div>
+    <div class="tag" id="tg1" style="left:70px;top:1150px">✈️ Lisboa</div>
+    <div class="tag" id="tg2" style="left:600px;top:470px">🏝️ Maceió</div>
+    <div class="tag" id="tg3" style="left:560px;top:1180px">🗽 Nova York</div>
+    <svg class="abs" id="trail" style="left:0;top:0" width="1080" height="1920" viewBox="0 0 1080 1920">
+      <path id="tr1" d="M-200 1700 L 1300 120" stroke="rgba(255,255,255,.65)" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path id="tr2" d="M-170 1730 L 1330 150" stroke="rgba(255,255,255,.65)" stroke-width="5" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div class="abs" id="plane2" style="left:0;top:0;width:600px;height:640px"><svg width="600" height="640" viewBox="0 0 600 640"><use href="#planeArt"/></svg></div>
+  </div>
+
+  <!-- ===== S7 · CTA: "Chama a gente no direct." ===== -->
+  <div class="scene" id="s7">
+    <div class="abs c ui" id="dmh" style="top:690px;font:600 30px/1 Inter;color:var(--ink3);letter-spacing:.02em">@flyupperviagens</div>
+    <div class="abs" id="ring2"></div>
+    <div class="abs" id="btn">
+      <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+      Chamar no direct
+    </div>
+    <div class="abs" id="rip"></div>
+    <div class="abs" id="touch"></div>
+    <div class="abs" id="end" style="left:0;top:0;width:1080px;height:1920px">
+      <div class="abs" id="logoE" style="left:300px;top:420px;width:480px;height:680px">
+        <svg width="480" height="680" viewBox="60 80 480 680"><g fill="#1F538C"><path id="mk4" fill-rule="evenodd"/><path id="ag4"/><path id="vg4"/><path id="dp4"/><path id="l14"/><path id="l24"/></g></svg>
+      </div>
+      <div class="abs c" id="bfE" style="top:1170px"><span class="bfpill"><i></i>BLACK FRIDAY</span></div>
+      <div class="abs c ui" id="hdE" style="top:1280px;font:500 38px/1 Inter;color:var(--ink3)">@flyupperviagens · chama no direct</div>
+    </div>
+  </div>
+
+  </div><!-- /cam -->
+
+  <div id="capbox"></div>
+  <div id="leak"></div>
+  <div id="vig"></div>
+  <canvas id="grain" width="740" height="1160"></canvas>
+  <div id="flash"></div>
+</div>
+
+<!-- avião vetorial (vista de cima) -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="fus" x1="0" x2="1"><stop offset="0" stop-color="#C9D3DE"/><stop offset=".22" stop-color="#F4F7FA"/><stop offset=".5" stop-color="#FFFFFF"/><stop offset=".78" stop-color="#EEF2F6"/><stop offset="1" stop-color="#B9C5D2"/></linearGradient>
+    <linearGradient id="wgL" x1="1" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#D5DDE6"/></linearGradient>
+    <linearGradient id="wgR" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#D5DDE6"/></linearGradient>
+    <linearGradient id="eng" x1="0" x2="1"><stop offset="0" stop-color="#16406D"/><stop offset=".5" stop-color="#2E6BAE"/><stop offset="1" stop-color="#16406D"/></linearGradient>
+    <g id="planeSil">
+      <path d="M276 250 L28 392 Q20 398 24 406 L34 410 L276 338 Z"/><path d="M324 250 L572 392 Q580 398 576 406 L566 410 L324 338 Z"/>
+      <path d="M286 520 L180 592 Q176 598 182 602 L286 576 Z"/><path d="M314 520 L420 592 Q424 598 418 602 L314 576 Z"/>
+      <path d="M300 18 C 322 18 330 70 330 120 L330 520 C 330 570 318 620 300 630 C 282 620 270 570 270 520 L270 120 C 270 70 278 18 300 18 Z"/>
+      <rect x="150" y="300" width="34" height="84" rx="16"/><rect x="416" y="300" width="34" height="84" rx="16"/>
+    </g>
+    <g id="planeArt">
+      <path d="M276 250 L28 392 Q20 398 24 406 L34 410 L276 338 Z" fill="url(#wgL)" stroke="#AEBBC9" stroke-width="1.2"/>
+      <path d="M324 250 L572 392 Q580 398 576 406 L566 410 L324 338 Z" fill="url(#wgR)" stroke="#AEBBC9" stroke-width="1.2"/>
+      <path d="M30 392 L22 372 Q22 366 28 368 L44 384 Z" fill="#1F538C"/><path d="M570 392 L578 372 Q578 366 572 368 L556 384 Z" fill="#1F538C"/>
+      <path d="M276 300 L118 386" stroke="#C3CDD8" stroke-width="2" fill="none"/><path d="M324 300 L482 386" stroke="#C3CDD8" stroke-width="2" fill="none"/>
+      <rect x="150" y="300" width="34" height="84" rx="16" fill="url(#eng)"/><rect x="416" y="300" width="34" height="84" rx="16" fill="url(#eng)"/>
+      <ellipse cx="167" cy="303" rx="14" ry="5" fill="#0D2A4A"/><ellipse cx="433" cy="303" rx="14" ry="5" fill="#0D2A4A"/>
+      <path d="M286 520 L180 592 Q176 598 182 602 L286 576 Z" fill="url(#wgL)" stroke="#AEBBC9" stroke-width="1.2"/>
+      <path d="M314 520 L420 592 Q424 598 418 602 L314 576 Z" fill="url(#wgR)" stroke="#AEBBC9" stroke-width="1.2"/>
+      <path d="M300 18 C 322 18 330 70 330 120 L330 520 C 330 570 318 620 300 630 C 282 620 270 570 270 520 L270 120 C 270 70 278 18 300 18 Z" fill="url(#fus)" stroke="#AEBBC9" stroke-width="1.2"/>
+      <path d="M296 470 L300 628 L304 470 Z" fill="#1F538C"/><path d="M300 470 L300 520" stroke="#1F538C" stroke-width="10" stroke-linecap="round"/>
+      <path d="M288 58 Q300 48 312 58 L310 70 Q300 64 290 70 Z" fill="#1B2B3C"/>
+      <rect x="297" y="110" width="6" height="340" rx="3" fill="#1F538C" opacity=".85"/>
+    </g>
+    <g id="planeWhite" fill="#fff"><use href="#planeSil"/></g>
+  </defs>
+</svg>
+
+<script src="assets/words.js"></script>
+<script>
+/* ---------- logo (vetor original da Fly Upper) ---------- */
+const LP = LOGO;
+[['mk1','mark'],['mk2','mark'],['mk3','mark'],['mk4','mark'],['ag2','agencia'],['vg2','viagens'],['dp2','divplane'],['l12','line1'],['l22','line2'],
+ ['ag4','agencia'],['vg4','viagens'],['dp4','divplane'],['l14','line1'],['l24','line2']].forEach(([id,k])=>document.getElementById(id).setAttribute('d',LP[k]));
+
+/* ---------- easing ---------- */
+function bez(x1,y1,x2,y2){
+  const cx=3*x1,bx=3*(x2-x1)-cx,ax=1-cx-bx,cy=3*y1,by=3*(y2-y1)-cy,ay=1-cy-by;
+  const sx=t=>((ax*t+bx)*t+cx)*t, sy=t=>((ay*t+by)*t+cy)*t;
+  return x=>{ if(x<=0)return 0; if(x>=1)return 1; let lo=0,hi=1,t=x;
+    for(let i=0;i<40;i++){ t=(lo+hi)/2; if(sx(t)<x) lo=t; else hi=t; } return sy(t); };
+}
+const EZ  = bez(0.5,0,0,1);      // "100/50": saída 50% · chegada 100%
+const EIO = bez(0.65,0,0.35,1);
+const EX  = bez(0.55,0,1,0.45);
+const EIN = bez(0.7,0,0.95,0.6);
+const LIN = x=>Math.min(1,Math.max(0,x));
+const SPR = p=>p<=0?0:p>=1?1:1-Math.exp(-7*p)*Math.cos(11*p);
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+const lerp=(a,b,p)=>a+(b-a)*p;
+const $=id=>document.getElementById(id);
+
+function kf(t,k){
+  if(!Array.isArray(k)) return k;
+  if(t<=k[0][0]) return k[0][1];
+  for(let i=1;i<k.length;i++){ if(t<=k[i][0]){ const [t0,v0]=k[i-1],[t1,v1,e=EZ]=k[i]; return t1<=t0?v1:lerp(v0,v1,e((t-t0)/(t1-t0))); } }
+  return k[k.length-1][1];
+}
+function S(el,t,p){
+  if(typeof el==='string') el=$(el);
+  const g=(n,d)=>p[n]===undefined?d:kf(t,p[n]);
+  const o=g('o',1);
+  el.style.opacity=o; el.style.visibility=o<=0.002?'hidden':'visible';
+  const sc=g('s',1);
+  el.style.transform=`translate3d(${g('x',0)}px,${g('y',0)}px,0) rotateX(${g('rx',0)}deg) rotateY(${g('ry',0)}deg) rotate(${g('r',0)}deg) scale(${g('sx',sc)},${g('sy',sc)})`;
+  const b=g('b',0); el.style.filter=b>0.05?`blur(${b}px)`:'none';
+}
+function split(el,chars){
+  const out=[]; const nodes=[...el.childNodes]; el.innerHTML='';
+  nodes.forEach(n=>{
+    if(n.nodeType===3){
+      const parts=chars? [...n.textContent] : n.textContent.split(/(\s+)/);
+      parts.forEach(s=>{ if(!s) return; if(/^\s+$/.test(s)){ el.appendChild(document.createTextNode(s)); return; }
+        const sp=document.createElement('span'); sp.className='w'; sp.textContent=s; el.appendChild(sp); out.push(sp); });
+    } else { const sp=document.createElement('span'); sp.className='w'; sp.appendChild(n); el.appendChild(sp); out.push(sp); }
+  });
+  el._w=out;
+}
+document.querySelectorAll('.split').forEach(e=>split(e,false));
+document.querySelectorAll('.chars').forEach(e=>split(e,true));
+function T(el,t,t0,o={}){
+  if(typeof el==='string') el=$(el);
+  const {st=0.06,d=0.62,dy=54,b=20,s0=1,t1=null,xd=0.3,xdy=-40,xb=18,xst=0.02,xs=1}=o;
+  const vis = t>=t0-0.01 && (t1===null || t<t1+xd+xst*el._w.length+0.02);
+  el.style.visibility=vis?'visible':'hidden'; if(!vis) return;
+  el.style.opacity=1;
+  el._w.forEach((w,i)=>{
+    const lt=t-t0-i*st, a=clamp(lt/d), e=EZ(a);
+    let op=clamp(lt/(d*0.45)), y=dy*(1-e), bl=b*(1-e), sc=lerp(s0,1,e);
+    if(t1!==null){ const q=clamp((t-t1-i*xst)/xd), e2=EX(q); op*=1-e2; y+=xdy*e2; bl+=xb*e2; sc*=lerp(1,xs,e2); }
+    w.style.opacity=op; w.style.transform=`translate3d(0,${y}px,0) scale(${sc})`;
+    w.style.filter=bl>0.05?`blur(${bl}px)`:'none';
+  });
+}
+function scene(id,t,a,b){ const v=t>=a&&t<b; $(id).style.display=v?'block':'none'; return v; }
+
+/* ---------- locução: cues por palavra ---------- */
+const VOW = VO.words.map(w=>({...w, s:w.s+VO.offset, e:w.e+VO.offset}));
+const K = i => VOW[i].s;           // início da palavra i do roteiro
+const KE = i => VOW[i].e;
+const DUR = VO.duration;
+
+/* ---------- legendas (chunks do roteiro) ---------- */
+const CH=[[0,0],[1,3],[4,5],[6,10],[11,13],[14,16],[17,21],[22,23],[24,29],[30,35],[36,41],[42,44],[45,48],[49,50],[51,54],[55,59]];
+const EMPH=new Set(VO.emph);
+const capbox=$('capbox');
+CH.forEach((c,ci)=>{
+  const d=document.createElement('div'); d.className='cap'; d.id='cap'+ci;
+  for(let i=c[0];i<=c[1];i++){ const s=document.createElement('span'); s.className='w'; s.textContent=VOW[i].w; s.dataset.i=i; d.appendChild(s); }
+  capbox.appendChild(d); c.el=d;
+  c.t0=VOW[c[0]].s-0.04;
+  c.t1=(ci+1<CH.length)? VOW[CH[ci+1][0]].s-0.04 : VOW[c[1]].e+0.7;
+});
+function mixc(a,b,p){ return a.map((v,i)=>Math.round(lerp(v,b[i],p))); }
+function captions(t,dark){
+  const base=mixc([29,29,31],[255,255,255],dark), hi=mixc([47,123,207],[124,196,255],dark);
+  CH.forEach(c=>{
+    const on=t>=c.t0-0.02 && t<c.t1+0.25;
+    c.el.style.display=on?'block':'none'; if(!on) return;
+    const xo=clamp((t-c.t1)/0.22);
+    [...c.el.querySelectorAll('.w')].forEach(w=>{
+      const i=+w.dataset.i, s=VOW[i].s, e=VOW[i].e;
+      const a=clamp((t-s+0.05)/0.3), ea=EZ(a);
+      const act = t>=s-0.03 && t<e+0.06;
+      const em=EMPH.has(i);
+      let col = (em && t>=s) || act ? hi : base;
+      w.style.color=`rgb(${col.join(',')})`;
+      const pop = em ? SPR(clamp((t-s+0.05)/0.45)) : ea;
+      const sc = (em? lerp(0.6,1,pop) : lerp(0.92,1,ea)) * (act?1.04:1);
+      w.style.opacity = clamp((t-s+0.05)/0.14)*(1-xo);
+      w.style.transform=`translate3d(0,${lerp(26,0,ea)-14*EX(xo)}px,0) scale(${sc})`;
+      const bl=lerp(12,0,ea)+10*xo; w.style.filter=bl>0.1?`blur(${bl}px)`:'none';
+      w.style.fontWeight = em? 800 : 650;
+    });
+  });
+}
+
+/* ---------- QR / estrelas / nuvens ---------- */
+(function(){ const q=$('qr'); let s=7, r=()=>((s=(s*16807)%2147483647)/2147483647); let h='<rect width="29" height="29" fill="#fff"/>';
+  const fin=(x,y)=>`<rect x="${x}" y="${y}" width="7" height="7" fill="#1D1D1F"/><rect x="${x+1}" y="${y+1}" width="5" height="5" fill="#fff"/><rect x="${x+2}" y="${y+2}" width="3" height="3" fill="#1D1D1F"/>`;
+  for(let y=0;y<29;y++)for(let x=0;x<29;x++){ const inF=(x<8&&y<8)||(x>20&&y<8)||(x<8&&y>20); if(!inF&&r()>0.52) h+=`<rect x="${x}" y="${y}" width="1" height="1" fill="#1D1D1F"/>`; }
+  q.innerHTML=h+fin(0,0)+fin(22,0)+fin(0,22); })();
+let RS=11; const rnd=()=>((RS=(RS*16807)%2147483647)/2147483647);
+const STARS=[]; for(let i=0;i<70;i++){ const d=document.createElement('div'); d.className='star'; const z=rnd(); const sz=1.5+z*3.5;
+  d.style.width=d.style.height=sz+'px'; $('stars').appendChild(d); STARS.push({el:d,x:rnd()*1080,y:rnd()*1900,z,ph:rnd()*6}); }
+const PUFFS=[]; for(let i=0;i<16;i++){ const d=document.createElement('div'); d.className='puff'; $('burst').appendChild(d);
+  const a=rnd()*Math.PI*2, r=120+rnd()*320, sz=600+rnd()*700; PUFFS.push({el:d,a,r,sz,dl:rnd()*0.18}); }
+const CL=[]; for(let L=0;L<3;L++) for(let i=0;i<(L===2?3:7);i++){ const g=document.createElement('div'); g.style.position='absolute'; g.style.left=0; g.style.top=0;
+  $(L===2?'cloudsTop':'clouds').appendChild(g); const w=(L===0?380:L===1?560:900)*(0.8+rnd()*0.5);
+  for(let k=0;k<3;k++){ const d=document.createElement('div'); d.className='cl'; const ww=w*(0.55+rnd()*0.5), hh=ww*(0.5+rnd()*0.25);
+    d.style.width=ww+'px'; d.style.height=hh+'px'; d.style.left=(k-1)*w*0.32+rnd()*w*0.1-ww/2+'px'; d.style.top=(rnd()-0.5)*w*0.15-hh/2+'px'; g.appendChild(d); }
+  CL.push({el:g,L,x:rnd()*1300-100,y:rnd()*2600}); }
+const SPD=[]; for(let i=0;i<28;i++){ const d=document.createElement('div'); d.className='spd'; $('speed').appendChild(d); SPD.push({el:d,a:(i/28)*360+rnd()*8,l:0.6+rnd()*0.8}); }
+
+/* grão */
+const gc=$('grain').getContext('2d'); const GT=[];
+(function(){ let s=99,r=()=>((s=(s*16807)%2147483647)/2147483647);
+  for(let k=0;k<6;k++){ const id=gc.createImageData(740,1160); for(let i=0;i<id.data.length;i+=4){ const v=Math.floor(r()*255); id.data[i]=id.data[i+1]=id.data[i+2]=v; id.data[i+3]=255; } GT.push(id);} })();
+
+const caArc=$('caArc'), caL=caArc.getTotalLength();
+function along(path,len,p){ const a=path.getPointAtLength(clamp(p)*len), b=path.getPointAtLength(clamp(p+0.002)*len); return {x:a.x,y:a.y,ang:Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI}; }
+
+/* ======================================================= */
+function render(t){
+  const F=Math.floor(t*60);
+  // índices do roteiro
+  const kBlack=K(2), kE=K(6), kFly=K(9), kDec=K(13), kPass=K(14), kPac=K(16), kOutro=K(20), kFunc=K(22), kVoce=K(24), kGente=K(30), kTarifa=K(35),
+        kE2=K(36), kMalas=K(41), kPague=K(42), kPix=K(44), kParc=K(46), kCart=K(48), kMas=K(49), kOfer=K(53), kVoam=K(54), kChama=K(55), kDirect=K(59), eDirect=KE(59);
+
+  /* fundo: noite → dia → noite (urgência) → dia */
+  const dark = kf(t,[[0,1],[kE-0.12,1],[kE+0.1,0,LIN],[kMas-0.06,0],[kMas+0.1,1,LIN],[kChama-0.14,1],[kChama+0.02,0,LIN]]);
+  const bgc=mixc([255,255,255],[0,0,0],dark); $('stage').style.background=`rgb(${bgc.join(',')})`;
+  $('vig').style.opacity=1-dark*0.5;
+
+  /* câmera */
+  const camS = 1 + 0.010*Math.sin(t*0.55) + kf(t,[[0,0.06],[1.6,0]]) + (t<kE? kf(t,[[kBlack,0],[kE,0.05,EIO]]):0)
+             + (t>=kE&&t<kPass? kf(t,[[kE,0],[kPass,0.04,EIO]]):0) + (t>=kMas&&t<kChama? kf(t,[[kMas,0],[kChama,0.06,EIO]]):0)
+             + (t>=eDirect? kf(t,[[eDirect,0],[DUR,0.04,EIO]]):0);
+  $('cam').style.transform=`translate3d(0,${4*Math.sin(t*0.8)}px,0) rotate(${0.15*Math.sin(t*0.4)}deg) scale(${camS})`;
+
+  /* light leaks de transição */
+  let lk=0,lx=0; [[kE-0.3,0.35],[kPass-0.2,0.45],[kFunc-0.2,0.3],[kPague-0.2,0.3],[kChama-0.25,0.35],[eDirect+0.3,0.5]].forEach(([a,amp])=>{ const p=(t-a)/0.7; if(p>0&&p<1){ lk=Math.max(lk,amp*Math.sin(Math.PI*p)); lx=lerp(-1200,1200,EIO(p)); }});
+  S('leak',t,{x:lx,o:lk*(1-dark*0.6)});
+  $('flash').style.opacity = Math.max(kf(t,[[kDec+0.32,0],[kDec+0.42,0.9,LIN],[kDec+0.85,0]]), kf(t,[[kVoam+0.3,0],[kVoam+0.42,0.0,LIN]]));
+
+  gc.putImageData(GT[F%6],0,0);
+  $('grain').style.transform=`translate(${(F*137)%200}px,${(F*311)%200}px) scale(2)`;
+  $('grain').style.opacity = 0.06 + dark*0.08;
+
+  captions(t, dark);
+
+  /* ---------- S1 noite ---------- */
+  if(scene('s1',t,0,kE+0.35)){
+    STARS.forEach(s=>{ const y=(s.y + t*(8+s.z*30))%1920; s.el.style.left=s.x+'px'; s.el.style.top=y+'px';
+      s.el.style.opacity=(0.25+0.6*s.z)*(0.6+0.4*Math.sin(t*2+s.ph)); });
+    // avião distante piscando
+    const fx=lerp(-80,1160,clamp(t/(kE+0.2))), fy=lerp(560,430,clamp(t/(kE+0.2)));
+    S('farplane',t,{x:fx,y:fy,o:[[0.2,0],[0.6,1]],s:0.9});
+    const bl=(t*1.3)%1; $('nlW').style.opacity = bl<0.08?1:0.05; $('nlR').style.opacity=0.6+0.4*Math.sin(t*6); $('nlG').style.opacity=0.6+0.4*Math.sin(t*6+1);
+    S('nt',t,{y:[[0.1,-260],[0.65,0],[kBlack-0.15,0],[kBlack+0.25,-260,EX]],s:[[0.1,0.92],[0.65,1]],b:[[0.1,12],[0.45,0],[kBlack-0.15,0],[kBlack+0.25,10]],o:[[0.1,0],[0.3,1,LIN]]});
+    T('bf1',t,kBlack-0.05,{st:0.05,d:0.6,dy:-140,b:36,s0:1.6});
+    T('bf2',t,K(3)-0.05,{st:0.05,d:0.6,dy:140,b:36,s0:1.6});
+    S('bfp',t,{o:[[K(4)-0.1,0],[K(4)+0.15,1]],y:[[K(4)-0.1,20],[K(4)+0.3,0]]});
+    S('bfpf',t,{sx:[[K(4),0.02],[kE-0.15,1,EIO]]});
+    // estouro de nuvens → dia
+    PUFFS.forEach(p=>{ const q=clamp((t-(kE-0.32)-p.dl*0.5)/0.5); const e=EIN(q);
+      const r=lerp(p.r*0.2,p.r*2.2,e), sz=p.sz*lerp(0.15,2.4,e);
+      p.el.style.width=p.el.style.height=sz+'px'; p.el.style.left=(540+Math.cos(p.a)*r-sz/2)+'px'; p.el.style.top=(900+Math.sin(p.a)*r-sz/2)+'px';
+      p.el.style.opacity= q<=0?0: clamp(q*4); });
+    const tw=kf(t,[[kE-0.2,1],[kE+0.1,0,LIN]]); ['bf1','bf2','bfp','stars','farplane'].forEach(id=>{ $(id).style.opacity=(id==='bfp'||id==='farplane'?parseFloat($(id).style.opacity||1):1)*tw; });
+  }
+
+  /* ---------- S2 céu + decolagem + logo ---------- */
+  if(scene('s2',t,kE-0.3,kPass+0.65)){
+    S('s2',t,{o:[[kPass+0.3,1],[kPass+0.6,0,LIN]],b:[[kPass+0.25,0],[kPass+0.6,20,EX]],s:[[kPass+0.25,1],[kPass+0.6,1.08,EX]]});
+    const climb=kf(t,[[kDec,0],[kDec+0.55,1,EIN]]);
+    const vel = 1 + 4*climb;
+    const clear=kf(t,[[kDec+0.35,1],[kDec+0.6,0.12,LIN]]);
+    CL.forEach(c=>{ const sp=(c.L===0?260:c.L===1?520:1100)*vel; const y=((c.y + (t-kE)*sp) % 2600) - 500;
+      c.el.style.transform=`translate(${c.x}px,${y}px)`;
+      c.el.style.filter=`blur(${c.L===0?10:c.L===1?3:8}px)`; c.el.style.opacity=(c.L===2?0.5:0.85)*clear; });
+    $('sky').style.opacity=clear;
+    // avião: entra por baixo, inclina, e decola em direção à câmera
+    const bank = 8*Math.sin((t-kE)*1.7);
+    const py = kf(t,[[kE-0.1,1150],[kE+0.75,40],[kDec,0],[kDec+0.55,-260,EIN]]);
+    const ps = kf(t,[[kE-0.1,0.78],[kE+0.75,1],[kDec,1.04],[kDec+0.55,3.6,EIN]]);
+    S('plane',t,{y:py,s:ps,ry:bank,r:kf(t,[[kE-0.1,-6],[kE+0.9,0]])+0.4*Math.sin(t*2.1),o:[[kDec+0.42,1],[kDec+0.55,0,LIN]],b:[[kDec+0.2,0],[kDec+0.55,10]]});
+    // sombra no topo das nuvens: afasta e some na subida
+    $('pshadow').style.filter='blur(16px)';
+    S('pshadow',t,{x:kf(t,[[kE,60],[kDec,70],[kDec+0.5,260]]),y:py+kf(t,[[kE,90],[kDec,100],[kDec+0.5,420]]),s:ps*kf(t,[[kE,0.92],[kDec,0.9],[kDec+0.5,0.5]]),ry:bank,
+      o:kf(t,[[kE,0],[kE+0.4,0.22],[kDec,0.22],[kDec+0.45,0]])});
+    SPD.forEach(s=>{ const p=clamp((t-kDec-0.05)/0.5); const on=p>0&&p<1; s.el.style.display=on?'block':'none'; if(!on) return;
+      const r=lerp(120,900,EIN(p))*s.l; s.el.style.transform=`rotate(${s.a}deg) translate(0,${r}px) scaleY(${lerp(0.3,1.6,p)})`; s.el.style.opacity=Math.sin(Math.PI*p)*0.9; });
+    // logo oficial
+    S('logoA',t,{o:[[kDec+0.4,0],[kDec+0.48,1,LIN],[kPass+0.2,1],[kPass+0.42,0,LIN]],s:[[kDec+0.4,0.75],[kDec+1.1,1,SPR],[kPass+0.2,1],[kPass+0.42,1.25,EX]],
+                 b:[[kDec+0.4,18],[kDec+0.7,0],[kPass+0.2,0],[kPass+0.42,24]],y:[[kPass+0.2,0],[kPass+0.42,-60,EX]]});
+    $('logoA').style.transformOrigin='50% 40%';
+    S('bfA',t,{o:[[kDec+0.75,0],[kDec+0.8,1,LIN],[kPass+0.18,1],[kPass+0.38,0]],s:[[kDec+0.75,1.6],[kDec+1.05,1,EZ]],b:[[kDec+0.75,14],[kDec+0.95,0]]});
+  }
+
+  /* ---------- S3 ofertas ---------- */
+  if(scene('s3',t,kPass+0.25,kFunc+0.3)){
+    S('s3',t,{o:[[kFunc-0.12,1],[kFunc+0.2,0,LIN]],b:[[kFunc-0.15,0],[kFunc+0.2,18,EX]],x:[[kFunc-0.15,0],[kFunc+0.25,-260,EX]]});
+    T('s3a',t,kPass+0.38,{st:0.07});
+    T('s3b',t,kPass+0.52,{st:0.06});
+    S('row3',t,{x:[[kPass,0],[kFunc,-40,EIO]]});
+    S('ca',t,{y:[[kPass+0.42,320],[kPass+1.1,0]],rx:[[kPass+0.42,26],[kPass+1.1,0]],s:[[kPass+0.42,0.9],[kPass+1.1,1]],b:[[kPass+0.42,18],[kPass+0.8,0]],o:[[kPass+0.42,0],[kPass+0.6,1,LIN]]});
+    S('cb',t,{y:[[kPac+0.1,320],[kPac+0.8,0]],rx:[[kPac+0.1,26],[kPac+0.8,0]],s:[[kPac+0.1,0.9],[kPac+0.8,1]],b:[[kPac+0.1,18],[kPac+0.5,0]],o:[[kPac+0.1,0],[kPac+0.3,1,LIN]]});
+    const ap=kf(t,[[kPass+0.7,0],[kPass+1.9,1]]); const pt=along(caArc,caL,ap);
+    $('caPl').setAttribute('transform',`translate(${pt.x},${pt.y}) rotate(${pt.ang+90})`);
+    caArc.style.strokeDashoffset = -t*40;
+    // planeta + órbita
+    const oa=(t-kPac)*1.6+0.6, ox=235+205*Math.cos(oa), oy=220+70*Math.sin(oa); const rot=-18*Math.PI/180;
+    const rx=235+(ox-235)*Math.cos(rot)-(oy-220)*Math.sin(rot), ry=220+(ox-235)*Math.sin(rot)+(oy-220)*Math.cos(rot);
+    const dx=-205*Math.sin(oa), dy=70*Math.cos(oa); const ang=Math.atan2(dx*Math.sin(rot)+dy*Math.cos(rot), dx*Math.cos(rot)-dy*Math.sin(rot))*180/Math.PI;
+    $('cbPl').setAttribute('transform',`translate(${rx},${ry}) rotate(${ang+90})`);
+    $('cbPl').style.opacity = Math.sin(oa)<-0.2 ? 0.25 : 1;
+    S('planet',t,{s:[[kPac+0.15,0.6],[kPac+0.95,1,SPR],[kOutro,1],[kOutro+0.5,1.08,SPR]]});
+  }
+
+  /* ---------- S4 como funciona ---------- */
+  if(scene('s4',t,kFunc-0.1,kPague+0.3)){
+    S('s4',t,{o:[[kPague-0.12,1],[kPague+0.2,0,LIN]],b:[[kPague-0.15,0],[kPague+0.2,18,EX]],x:[[kPague-0.15,0],[kPague+0.25,-260,EX]]});
+    T('s4a',t,kFunc,{st:0.08});
+    const act=[kf(t,[[kVoce-0.1,0],[kVoce+0.2,1],[kGente-0.15,1],[kGente+0.15,0]]),kf(t,[[kGente-0.15,0],[kGente+0.15,1],[kE2-0.15,1],[kE2+0.15,0]]),kf(t,[[kE2-0.15,0],[kE2+0.15,1]])];
+    const ws=act.map(a=>18+42*a), tot=ws.reduce((a,b)=>a+b,0)+32; let x0=540-tot/2;
+    ['d1','d2','d3'].forEach((id,i)=>{ const e=$(id); e.style.left=x0+'px'; e.style.width=ws[i]+'px';
+      e.style.background=`rgb(${mixc([210,210,215],[31,83,140],act[i]).join(',')})`; x0+=ws[i]+16; });
+    S('dots',t,{o:[[kFunc+0.1,0],[kFunc+0.4,1]],y:[[kFunc+0.1,20],[kFunc+0.5,0]]});
+    // passo 1
+    S('p1',t,{x:[[kGente+0.02,0],[kGente+0.35,-420,EX]],b:[[kGente+0.02,0],[kGente+0.35,20,EX]],o:[[kGente+0.12,1],[kGente+0.35,0,LIN]]});
+    S('imh',t,{o:[[kFunc+0.1,0],[kFunc+0.4,1]],y:[[kFunc+0.1,20],[kFunc+0.5,0]]});
+    $('bu1').style.transformOrigin='100% 100%';
+    S('bu1',t,{o:[[kVoce-0.05,0],[kVoce+0.03,1,LIN]],s:[[kVoce-0.05,0.2],[kVoce+0.5,1,SPR]],y:[[kVoce-0.05,60],[kVoce+0.35,0]],b:[[kVoce-0.05,10],[kVoce+0.15,0]]});
+    const tyA=kVoce+0.3, tyB=kVoce+0.4;
+    $('typ').style.transformOrigin='0% 100%';
+    S('typ',t,{o:[[tyA,0],[tyA+0.06,1,LIN],[tyB,1],[tyB+0.07,0,LIN]],s:[[tyA,0.3],[tyA+0.4,1,SPR],[tyB,1],[tyB+0.07,0.6]]});
+    [...$('typ').children].forEach((d,i)=>{ const v=Math.max(0,Math.sin((t*9)-i*0.9)); d.style.transform=`translateY(${-10*v}px)`; d.style.opacity=0.45+0.55*v; });
+    $('bu2').style.transformOrigin='0% 100%';
+    S('bu2',t,{o:[[tyB+0.03,0],[tyB+0.1,1,LIN]],s:[[tyB+0.03,0.3],[tyB+0.55,1,SPR]],b:[[tyB+0.03,10],[tyB+0.2,0]]});
+    // passo 2
+    S('p2',t,{x:[[kGente+0.05,420],[kGente+0.5,0],[kE2-0.2,0],[kE2+0.15,-420,EX]],b:[[kGente+0.05,20],[kGente+0.4,0],[kE2-0.2,0],[kE2+0.15,20,EX]],o:[[kGente+0.05,0],[kGente+0.25,1,LIN],[kE2-0.1,1],[kE2+0.15,0,LIN]]});
+    const full='Lisboa · Março'; $('stx').textContent=full.slice(0,Math.floor(kf(t,[[kGente+0.2,0],[kGente+0.55,full.length,LIN]])));
+    $('caret').style.opacity=(Math.floor(t*3)%2===0||t<kGente+0.4)?1:0;
+    ['r1','r2','r3'].forEach((id,i)=>{ const a=kGente+0.4+i*0.07, sel=kTarifa-0.15, best=id==='r3';
+      S(id,t,{o:[[a,0],[a+0.2,1],[sel,1],[sel+0.3,best?1:0.38]],y:[[a,90],[a+0.5,0]],b:[[a,16],[a+0.35,0],[sel,0],[sel+0.3,best?0:4]],
+               s:best?[[sel,1],[sel+0.45,1.06,SPR]]:[[sel,1],[sel+0.3,0.97]]}); });
+    const selP=kf(t,[[kTarifa-0.15,0],[kTarifa+0.1,1]]); $('r3').style.borderColor=`rgba(47,123,207,${selP})`; $('r3').style.borderWidth=(2+3*selP)+'px';
+    $('r3').style.boxShadow=`0 ${20*selP}px ${60*selP}px rgba(47,123,207,${0.3*selP})`;
+    S('scan',t,{y:[[kGente+0.65,0],[kTarifa-0.15,460,EIO]],o:[[kGente+0.65,0],[kGente+0.72,1],[kTarifa-0.25,1],[kTarifa-0.12,0]]});
+    S('bbadge',t,{o:[[kTarifa,0],[kTarifa+0.06,1,LIN]],s:[[kTarifa,0.3],[kTarifa+0.5,1,SPR]],y:[[kTarifa,20],[kTarifa+0.35,0]]});
+    // passo 3
+    S('p3',t,{});
+    S('pass',t,{y:[[kE2-0.1,1100],[kE2+0.6,0]],rx:[[kE2-0.1,-40],[kE2+0.6,0]],r:[[kE2-0.1,7],[kE2+0.6,0]],s:[[kE2-0.1,0.9],[kE2+0.6,1]],b:[[kE2-0.1,14],[kE2+0.35,0]],o:[[kE2-0.1,0],[kE2+0.05,1,LIN]],
+                ry:4*Math.sin((t-kE2)*1.4)*kf(t,[[kE2+0.5,0],[kE2+0.9,1]])});
+    S('pshine',t,{x:[[kE2+0.55,0],[kE2+1.15,1400,EIO]]});
+    S('ok',t,{o:[[kMalas-0.05,0],[kMalas+0.01,1,LIN]],s:[[kMalas-0.05,0],[kMalas+0.5,1,SPR]],r:[[kMalas-0.05,-40],[kMalas+0.45,0]]});
+    $('okp').style.strokeDasharray=80; $('okp').style.strokeDashoffset=80*(1-kf(t,[[kMalas+0.07,0],[kMalas+0.4,1]]));
+  }
+
+  /* ---------- S5 pagamento ---------- */
+  if(scene('s5',t,kPague-0.1,kMas+0.15)){
+    S('s5',t,{o:[[kMas-0.1,1],[kMas+0.12,0,LIN]],s:[[kMas-0.12,1],[kMas+0.12,0.9,EX]],b:[[kMas-0.12,0],[kMas+0.12,20,EX]]});
+    T('s5a',t,kPague,{st:0.07});
+    $('pixc').style.transformOrigin='50% 50%';
+    S('pixc',t,{y:[[kPague+0.05,260],[kPague+0.7,0]],rx:[[kPague+0.05,28],[kPague+0.7,0]],s:[[kPague+0.05,0.9],[kPague+0.7,1]],b:[[kPague+0.05,18],[kPague+0.45,0]],o:[[kPague+0.05,0],[kPague+0.25,1,LIN],[kParc+0.02,1],[kParc+0.05,0,LIN]],
+                ry:[[kParc-0.3,0],[kParc+0.05,90,EX]]});
+    S('px0',t,{o:[[kPague+0.2,0],[kPague+0.45,1]],x:[[kPague+0.2,-20],[kPague+0.5,0]]});
+    S('px1',t,{s:[[kPix-0.05,0],[kPix+0.45,1,SPR]],o:[[kPix-0.05,0],[kPix,1,LIN]]});
+    $('pxp').style.strokeDasharray=80; $('pxp').style.strokeDashoffset=80*(1-kf(t,[[kPix+0.05,0],[kPix+0.35,1]]));
+    S('px2',t,{o:[[kPix+0.05,0],[kPix+0.3,1]],y:[[kPix+0.05,24],[kPix+0.45,0]],b:[[kPix+0.05,10],[kPix+0.35,0]]});
+    S('px3',t,{o:[[kPix+0.12,0],[kPix+0.37,1]],y:[[kPix+0.12,24],[kPix+0.52,0]]});
+    S('px4',t,{o:[[kPix+0.18,0],[kPix+0.45,1]],y:[[kPix+0.18,24],[kPix+0.58,0]]});
+    S('cc',t,{ry:[[kParc+0.05,-90],[kParc+0.5,0]],o:[[kParc+0.04,0],[kParc+0.06,1,LIN]],y:[[kParc+0.05,0],[kParc+0.5,-20]],
+              rx:5*Math.sin((t-kParc)*1.8)*kf(t,[[kParc+0.45,0],[kParc+0.8,1]]), r:kf(t,[[kParc+0.45,0],[kParc+1.2,-3]])});
+    S('ccs',t,{x:[[kParc+0.45,0],[kParc+1.2,1600,EIO]]});
+    S('seg',t,{o:[[kParc+0.2,0],[kParc+0.45,1]],y:[[kParc+0.2,30],[kParc+0.6,0]],b:[[kParc+0.2,10],[kParc+0.5,0]]});
+    S('segk',t,{x:[[kCart-0.1,0],[kCart+0.3,336,EZ]]});
+  }
+
+  /* ---------- S6 urgência (noite) ---------- */
+  if(scene('s6',t,kMas-0.05,kChama+0.1)){
+    S('s6',t,{o:[[kChama-0.15,1],[kChama+0.05,0,LIN]]});
+    const rp=kf(t,[[kMas,1],[kVoam,0.06,LIN]]); const C=2*Math.PI*250;
+    $('ringp').style.strokeDasharray=C; $('ringp').style.strokeDashoffset=C*(1-rp);
+    S('ring',t,{o:[[kMas,0],[kMas+0.15,1],[kVoam+0.05,1],[kVoam+0.3,0]],s:[[kMas,0.7],[kMas+0.6,1,SPR],[kVoam+0.05,1],[kVoam+0.35,1.5,EX]],b:[[kMas,16],[kMas+0.3,0],[kVoam+0.05,0],[kVoam+0.35,20]]});
+    const secs=Math.max(0,Math.round(59*kf(t,[[kMas+0.1,1],[kVoam,0.03,LIN]])));
+    $('rnum').textContent='00:'+String(secs).padStart(2,'0');
+    S('rnum',t,{o:[[kMas+0.05,0],[kMas+0.25,1],[kVoam+0.05,1],[kVoam+0.3,0]],s:[[kMas+0.05,0.8],[kMas+0.5,1,SPR],[kVoam+0.05,1],[kVoam+0.35,1.6,EX]],b:[[kVoam+0.05,0],[kVoam+0.35,22]]});
+    S('rlab',t,{o:[[kMas+0.12,0],[kMas+0.35,1],[kVoam+0.05,1],[kVoam+0.25,0]]});
+    [['tg1',0,-1300,-14],['tg2',0.07,-1500,10],['tg3',0.14,-1400,-8]].forEach(([id,d,fy,rr])=>{
+      S(id,t,{o:[[kOfer-0.1+d,0],[kOfer+0.05+d,1],[kVoam+0.1+d*0.5,1],[kVoam+0.45+d*0.5,0,LIN]],s:[[kOfer-0.1+d,0.4],[kOfer+0.4+d,1,SPR]],
+              y:[[kVoam+0.02+d*0.5,0],[kVoam+0.5+d*0.5,fy,EIN]],r:[[kVoam+0.02,0],[kVoam+0.5,rr]],b:[[kOfer-0.1+d,14],[kOfer+0.2+d,0],[kVoam+0.1,0],[kVoam+0.45,16]]}); });
+    // avião cruza a tela deixando rastro
+    const fp=kf(t,[[kVoam-0.05,0],[kVoam+0.55,1,EIO]]);
+    S('plane2',t,{x:lerp(-700,1300,fp)-300,y:lerp(1650,-200,fp)-320,r:43,s:1.25,o:[[kVoam-0.05,0],[kVoam,1,LIN],[kVoam+0.5,1],[kVoam+0.55,0]],b:6*Math.sin(Math.PI*fp)});
+    const tl=kf(t,[[kVoam,0],[kVoam+0.5,1,EIO]]); ['tr1','tr2'].forEach(id=>{ const p=$(id), L=p.getTotalLength(); p.style.strokeDasharray=L; p.style.strokeDashoffset=L*(1-tl); });
+    S('trail',t,{o:[[kVoam,0],[kVoam+0.05,1],[kChama-0.3,1],[kChama-0.05,0]],b:[[kVoam+0.3,0],[kChama-0.05,8]]});
+  }
+
+  /* ---------- S7 CTA + lockup final ---------- */
+  if(scene('s7',t,kChama-0.12,DUR+1)){
+    const ctaOut=eDirect+0.35;
+    S('dmh',t,{o:[[kChama,0],[kChama+0.25,1],[ctaOut,1],[ctaOut+0.25,0]],y:[[kChama,16],[kChama+0.35,0]]});
+    S('btn',t,{o:[[kChama-0.05,0],[kChama+0.05,1,LIN],[ctaOut,1],[ctaOut+0.25,0,LIN]],s:[[kChama-0.05,0.5],[kChama+0.5,1,SPR],[kDirect-0.02,1],[kDirect+0.08,0.93,EIO],[kDirect+0.5,1,SPR],[ctaOut,1],[ctaOut+0.25,0.85,EX]],b:[[kChama-0.05,16],[kChama+0.25,0],[ctaOut,0],[ctaOut+0.25,16,EX]]});
+    S('ring2',t,{o:[[kChama+0.15,0],[kChama+0.35,0.35],[kDirect+0.1,0.35],[kDirect+0.4,0]],s:[[kChama+0.15,0.9],[kChama+0.6,1]]});
+    const tx=kf(t,[[kChama+0.35,900],[kDirect-0.05,485]]), ty=kf(t,[[kChama+0.35,1700],[kDirect-0.05,865]]);
+    S('touch',t,{x:tx,y:ty,o:[[kChama+0.35,0],[kChama+0.5,1],[kDirect+0.3,1],[kDirect+0.5,0]],s:[[kDirect-0.04,1],[kDirect+0.06,0.82],[kDirect+0.22,1]]});
+    S('rip',t,{x:485,y:865,o:[[kDirect+0.08,0],[kDirect+0.1,0.9],[kDirect+0.6,0]],s:[[kDirect+0.08,0.6],[kDirect+0.6,3.4]]});
+    // lockup final com a logo oficial
+    const e0=ctaOut+0.1;
+    S('end',t,{o:[[e0-0.02,0],[e0,1,LIN]]});
+    $('logoE').style.transformOrigin='50% 40%';
+    S('logoE',t,{s:[[e0,0.7],[e0+0.7,1,SPR]],b:[[e0,18],[e0+0.35,0]],o:[[e0,0],[e0+0.1,1,LIN]]});
+    S('bfE',t,{o:[[e0+0.35,0],[e0+0.4,1,LIN]],s:[[e0+0.35,1.6],[e0+0.65,1]],b:[[e0+0.35,14],[e0+0.55,0]]});
+    S('hdE',t,{o:[[e0+0.55,0],[e0+0.85,1]],y:[[e0+0.55,16],[e0+0.95,0]],b:[[e0+0.55,8],[e0+0.85,0]]});
+  }
+}
+window.render=render; window.DUR=DUR;
+document.fonts.ready.then(()=>{ window.__ready=true; });
+if(location.hash==='#play'){ const t0=performance.now(); (function loop(){ render(((performance.now()-t0)/1000)%DUR); requestAnimationFrame(loop); })(); }
+else render(0);
+</script>
+</body>
+</html>
